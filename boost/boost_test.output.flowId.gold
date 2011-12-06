@@ -1,0 +1,102 @@
+
+##teamcity[testSuiteStarted name='Master Test Suite' flowId='myFlowId']
+
+##teamcity[testSuiteStarted name='my_suite1' flowId='myFlowId']
+
+##teamcity[testStarted name='my_test1' flowId='myFlowId']
+check 2 == 1 failed
+
+##teamcity[testFailed name='my_test1' message='failed' details='check 2 == 1 failed|n' flowId='myFlowId']
+
+##teamcity[testFinished name='my_test1' flowId='myFlowId' duration='0']
+
+##teamcity[testStarted name='my_test2' flowId='myFlowId']
+check i == 2 failed [0 != 2]
+check i == 0 passed
+
+##teamcity[testFailed name='my_test2' message='failed' details='check i == 2 failed [0 != 2|]|ncheck i == 0 passed|n' flowId='myFlowId']
+
+##teamcity[testFinished name='my_test2' flowId='myFlowId' duration='0']
+
+##teamcity[testSuiteFinished name='my_suite1' flowId='myFlowId']
+
+##teamcity[testStarted name='my_test3' flowId='myFlowId']
+check i == 0 passed
+
+##teamcity[testFinished name='my_test3' flowId='myFlowId' duration='0']
+
+##teamcity[testSuiteStarted name='my_suite2' flowId='myFlowId']
+
+##teamcity[testStarted name='my_test4' flowId='myFlowId']
+check i == 1 failed [0 != 1]
+
+##teamcity[testFailed name='my_test4' message='failed' details='check i == 1 failed [0 != 1|]|n' flowId='myFlowId']
+
+##teamcity[testFinished name='my_test4' flowId='myFlowId' duration='0']
+
+##teamcity[testSuiteStarted name='internal_suite' flowId='myFlowId']
+
+##teamcity[testStarted name='my_test5' flowId='myFlowId']
+check i == 1 failed [0 != 1]
+
+##teamcity[testFailed name='my_test5' message='failed' details='check i == 1 failed [0 != 1|]|n' flowId='myFlowId']
+
+##teamcity[testFinished name='my_test5' flowId='myFlowId' duration='0']
+
+##teamcity[testSuiteFinished name='internal_suite' flowId='myFlowId']
+
+##teamcity[testSuiteFinished name='my_suite2' flowId='myFlowId']
+
+##teamcity[testStarted name='testCerr' flowId='myFlowId']
+Hello from cerr
+Test case testCerr did not check any assertions
+
+##teamcity[testFinished name='testCerr' flowId='myFlowId' duration='0']
+
+##teamcity[testStarted name='testCout' flowId='myFlowId']
+Hello from cout
+Test case testCout did not check any assertions
+
+##teamcity[testFinished name='testCout' flowId='myFlowId' duration='0']
+
+##teamcity[testStarted name='testException' flowId='myFlowId']
+std::runtime_error: runtime exception text
+
+##teamcity[testFailed name='testException' message='aborted' details='std::runtime_error: runtime exception text|n' flowId='myFlowId']
+
+##teamcity[testFinished name='testException' flowId='myFlowId' duration='0']
+
+##teamcity[testStarted name='testAssertExceptionGood' flowId='myFlowId']
+check 'exception runtime_error is caught' passed
+
+##teamcity[testFinished name='testAssertExceptionGood' flowId='myFlowId' duration='0']
+
+##teamcity[testStarted name='testAssertExceptionFail' flowId='myFlowId']
+std::runtime_error: runtime exception text
+
+##teamcity[testFailed name='testAssertExceptionFail' message='aborted' details='std::runtime_error: runtime exception text|n' flowId='myFlowId']
+
+##teamcity[testFinished name='testAssertExceptionFail' flowId='myFlowId' duration='0']
+
+##teamcity[testStarted name='testFatal' flowId='myFlowId']
+bfail
+
+##teamcity[testFailed name='testFatal' message='aborted' details='bfail|n' flowId='myFlowId']
+
+##teamcity[testFinished name='testFatal' flowId='myFlowId' duration='0']
+
+##teamcity[testStarted name='testError' flowId='myFlowId']
+berror
+
+##teamcity[testFailed name='testError' message='failed' details='berror|n' flowId='myFlowId']
+
+##teamcity[testFinished name='testError' flowId='myFlowId' duration='0']
+
+##teamcity[testStarted name='testNothing' flowId='myFlowId']
+Test case testNothing did not check any assertions
+
+##teamcity[testFinished name='testNothing' flowId='myFlowId' duration='0']
+
+##teamcity[testSuiteFinished name='Master Test Suite' flowId='myFlowId']
+
+*** 8 failures detected in test suite "Master Test Suite"

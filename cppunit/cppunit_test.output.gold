@@ -1,0 +1,46 @@
+
+##teamcity[testSuiteStarted name='All Tests']
+
+##teamcity[testSuiteStarted name='MyTest']
+
+##teamcity[testStarted name='MyTest::testHelloWorld']
+Hello, cout
+
+##teamcity[testFinished name='MyTest::testHelloWorld']
+
+##teamcity[testStarted name='MyTest::testException']
+
+##teamcity[testFailed name='MyTest::testException' message='uncaught exception of type St13runtime_error' details='- runtime exception text|n']
+
+##teamcity[testFinished name='MyTest::testException']
+
+##teamcity[testStarted name='MyTest::testCerr']
+Hello, cerr!
+
+##teamcity[testFinished name='MyTest::testCerr']
+
+##teamcity[testStarted name='MyTest::testAssert']
+
+##teamcity[testFailed name='MyTest::testAssert' message='assertion failed' details='- Expression: false|n at cppunit/cppunit_test.cpp:68|n']
+
+##teamcity[testFinished name='MyTest::testAssert']
+
+##teamcity[testStarted name='MyTest::testAssertThrow']
+
+##teamcity[testFailed name='MyTest::testAssertThrow' message='expected exception not thrown' details='- Expected: logic_error|n- Actual  : St13runtime_error|n- What()  : runtime exception text|n at cppunit/cppunit_test.cpp:64|n']
+
+##teamcity[testFinished name='MyTest::testAssertThrow']
+
+##teamcity[testStarted name='MyTest::testAssertEqual']
+
+##teamcity[testFailed name='MyTest::testAssertEqual' message='equality assertion failed' details='- Expected: 2|n- Actual  : 1|n at cppunit/cppunit_test.cpp:58|n']
+
+##teamcity[testFinished name='MyTest::testAssertEqual']
+
+##teamcity[testStarted name='MyTest::testNothing']
+
+##teamcity[testFinished name='MyTest::testNothing']
+
+##teamcity[testSuiteFinished name='MyTest']
+
+##teamcity[testSuiteFinished name='All Tests']

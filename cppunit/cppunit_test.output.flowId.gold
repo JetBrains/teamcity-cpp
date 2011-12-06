@@ -1,0 +1,46 @@
+
+##teamcity[testSuiteStarted name='All Tests' flowId='myFlowId']
+
+##teamcity[testSuiteStarted name='MyTest' flowId='myFlowId']
+
+##teamcity[testStarted name='MyTest::testHelloWorld' flowId='myFlowId']
+Hello, cout
+
+##teamcity[testFinished name='MyTest::testHelloWorld' flowId='myFlowId']
+
+##teamcity[testStarted name='MyTest::testException' flowId='myFlowId']
+
+##teamcity[testFailed name='MyTest::testException' message='uncaught exception of type St13runtime_error' details='- runtime exception text|n' flowId='myFlowId']
+
+##teamcity[testFinished name='MyTest::testException' flowId='myFlowId']
+
+##teamcity[testStarted name='MyTest::testCerr' flowId='myFlowId']
+Hello, cerr!
+
+##teamcity[testFinished name='MyTest::testCerr' flowId='myFlowId']
+
+##teamcity[testStarted name='MyTest::testAssert' flowId='myFlowId']
+
+##teamcity[testFailed name='MyTest::testAssert' message='assertion failed' details='- Expression: false|n at cppunit/cppunit_test.cpp:68|n' flowId='myFlowId']
+
+##teamcity[testFinished name='MyTest::testAssert' flowId='myFlowId']
+
+##teamcity[testStarted name='MyTest::testAssertThrow' flowId='myFlowId']
+
+##teamcity[testFailed name='MyTest::testAssertThrow' message='expected exception not thrown' details='- Expected: logic_error|n- Actual  : St13runtime_error|n- What()  : runtime exception text|n at cppunit/cppunit_test.cpp:64|n' flowId='myFlowId']
+
+##teamcity[testFinished name='MyTest::testAssertThrow' flowId='myFlowId']
+
+##teamcity[testStarted name='MyTest::testAssertEqual' flowId='myFlowId']
+
+##teamcity[testFailed name='MyTest::testAssertEqual' message='equality assertion failed' details='- Expected: 2|n- Actual  : 1|n at cppunit/cppunit_test.cpp:58|n' flowId='myFlowId']
+
+##teamcity[testFinished name='MyTest::testAssertEqual' flowId='myFlowId']
+
+##teamcity[testStarted name='MyTest::testNothing' flowId='myFlowId']
+
+##teamcity[testFinished name='MyTest::testNothing' flowId='myFlowId']
+
+##teamcity[testSuiteFinished name='MyTest' flowId='myFlowId']
+
+##teamcity[testSuiteFinished name='All Tests' flowId='myFlowId']
