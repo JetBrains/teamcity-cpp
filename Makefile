@@ -27,12 +27,12 @@ BOOST_OUTPUT = boost/boost_test.output
 CPPUNIT_OUTPUT = cppunit/cppunit_test.output
 
 test: boost_test cppunit_test
-	./boost_test >$(BOOST_OUTPUT).tmp 2>&1 ||:
+	BOOST_TEST_LOG_LEVEL=all ./boost_test >$(BOOST_OUTPUT).tmp 2>&1 ||:
 	diff -Nru $(BOOST_OUTPUT).gold $(BOOST_OUTPUT).tmp && rm -f $(BOOST_OUTPUT).tmp
 	
-	TEAMCITY_PROCESS_FLOW_ID=myFlowId ./boost_test >$(BOOST_OUTPUT).flowId.tmp 2>&1 ||:
+	BOOST_TEST_LOG_LEVEL=all TEAMCITY_PROCESS_FLOW_ID=myFlowId ./boost_test >$(BOOST_OUTPUT).flowId.tmp 2>&1 ||:
 	diff -Nru $(BOOST_OUTPUT).flowId.gold $(BOOST_OUTPUT).flowId.tmp && rm -f $(BOOST_OUTPUT).flowId.tmp
-	
+
 	./cppunit_test >$(CPPUNIT_OUTPUT).tmp 2>&1 ||:
 	diff -Nru $(CPPUNIT_OUTPUT).gold $(CPPUNIT_OUTPUT).tmp && rm -f $(CPPUNIT_OUTPUT).tmp
 	
