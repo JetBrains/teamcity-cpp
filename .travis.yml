@@ -3,5 +3,8 @@ compiler:
   - clang
   - gcc
 install:
-  - sudo apt-get install libboost-dev libcppunit-dev
-script: make
+  - sudo apt-get update -qq
+  - sudo apt-get install -y libboost-dev libcppunit-dev
+script: 
+  - ls -la /usr/lib/
+  - make
