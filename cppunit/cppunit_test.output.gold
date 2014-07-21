@@ -10,7 +10,7 @@ Hello, cout
 
 ##teamcity[testStarted name='MyTest::testException']
 
-##teamcity[testFailed name='MyTest::testException' message='uncaught exception of type St13runtime_error' details='- runtime exception text|n']
+##teamcity[testFailed name='MyTest::testException' message='uncaught exception of type std::runtime_error' details='- runtime exception text|n']
 
 ##teamcity[testFinished name='MyTest::testException']
 
@@ -27,7 +27,7 @@ Hello, cerr!
 
 ##teamcity[testStarted name='MyTest::testAssertThrow']
 
-##teamcity[testFailed name='MyTest::testAssertThrow' message='expected exception not thrown' details='- Expected: logic_error|n- Actual  : St13runtime_error|n- What()  : runtime exception text|n at cppunit/cppunit_test.cpp:64|n']
+##teamcity[testFailed name='MyTest::testAssertThrow' message='expected exception not thrown' details='- Expected: logic_error|n- Actual  : std::runtime_error|n- What()  : runtime exception text|n at cppunit/cppunit_test.cpp:64|n']
 
 ##teamcity[testFinished name='MyTest::testAssertThrow']
 
