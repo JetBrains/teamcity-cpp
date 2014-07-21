@@ -2,5 +2,6 @@ language: cpp
 compiler:
   - clang
   - gcc
+install:
+  - sudo apt-get install libboost-dev libcppunit-dev
 script: make
-
