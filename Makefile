@@ -16,8 +16,7 @@ all: test
 CXXFLAGS := -Icommon -g -O0
 
 boost_test: $(BOOST_FILES)
-	g++ $(CXXFLAGS) -DBOOST_TEST_DYN_LINK -o \
-		$@ $(filter %.cpp, $(BOOST_FILES)) -lboost_unit_test_framework-mt
+	g++ $(CXXFLAGS) -o $@ $(filter %.cpp, $(BOOST_FILES))
 
 cppunit_test: $(CPPUNIT_FILES)
 	g++ $(CXXFLAGS) -o \
