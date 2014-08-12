@@ -29,7 +29,7 @@ std::string getFlowIdFromEnvironment() {
 	char *flowId =NULL;
 	size_t sz = 0;
 	std::string result;
-	if(_dupenv_s( &flowId, &sz,"TEAMCITY_PROCESS_FLOW_ID")){
+	if(!_dupenv_s( &flowId, &sz,"TEAMCITY_PROCESS_FLOW_ID")){
 		result = flowId!=NULL?flowId:"";
 		free(flowId);
 	}
@@ -45,7 +45,7 @@ bool underTeamcity() {
 	char * teamCityProjectName = 0;
 	size_t sz = 0;
 	bool result = false;
-	if(_dupenv_s( &teamCityProjectName, &sz,"TEAMCITY_PROJECT_NAME")){
+	if(!_dupenv_s( &teamCityProjectName, &sz,"TEAMCITY_PROJECT_NAME")){
 		result = teamCityProjectName!=NULL;
 		free(teamCityProjectName);
 	}
