@@ -1,0 +1,7 @@
+*.sdf
+*.suo
+*.opensdf
+_ReSharper.Caches
+Debug
+boost
+cppunit
