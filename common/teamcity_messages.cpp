@@ -25,12 +25,34 @@ using namespace std;
 namespace JetBrains {
 
 std::string getFlowIdFromEnvironment() {
-    const char *flowId = getenv("TEAMCITY_PROCESS_FLOW_ID");
+#if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
+	char *flowId =NULL;
+	size_t sz = 0;
+	std::string result;
+	if(!_dupenv_s( &flowId, &sz,"TEAMCITY_PROCESS_FLOW_ID")){
+		result = flowId!=NULL?flowId:"";
+		free(flowId);
+	}
+	return result;
+#else
+	const char *flowId = getenv("TEAMCITY_PROCESS_FLOW_ID");
     return flowId == NULL ? "" : flowId;
+#endif
 }
 
 bool underTeamcity() {
-    return getenv("TEAMCITY_PROJECT_NAME") != NULL;
+#if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
+	char * teamCityProjectName = 0;
+	size_t sz = 0;
+	bool result = false;
+	if(!_dupenv_s( &teamCityProjectName, &sz,"TEAMCITY_PROJECT_NAME")){
+		result = teamCityProjectName!=NULL;
+		free(teamCityProjectName);
+	}
+	return result;
+#else
+	return getenv("TEAMCITY_PROJECT_NAME") != NULL;
+#endif
 }
 
 TeamcityMessages::TeamcityMessages()
