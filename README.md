@@ -1,6 +1,8 @@
 teamcity-cpp
 ============
 
+[![Travis Build Status](https://travis-ci.org/JetBrains/teamcity-cpp.svg?branch=master)](https://travis-ci.org/JetBrains/teamcity-cpp)
+
 C++ Tests Reporting to TeamCity Continuous Integration Server
 
 Repository consist of C++ files to include in your project that automatically reports unit tests to the TeamCity server if run within TeamCity.
