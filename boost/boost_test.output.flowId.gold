@@ -4,42 +4,40 @@
 ##teamcity[testSuiteStarted name='my_suite1' flowId='myFlowId']
 
 ##teamcity[testStarted name='my_test1' flowId='myFlowId']
-check 2 == 1 failed
+boost/boost_test.cpp(13): check 2 == 1 failed
 
-##teamcity[testFailed name='my_test1' message='failed' details='check 2 == 1 failed|n' flowId='myFlowId']
+##teamcity[testFailed name='my_test1' message='failed' details='boost/boost_test.cpp(13): check 2 == 1 failed|n' flowId='myFlowId']
 
 ##teamcity[testFinished name='my_test1' flowId='myFlowId' duration='0']
 
 ##teamcity[testStarted name='my_test2' flowId='myFlowId']
-check i == 2 failed [0 != 2]
-check i == 0 passed
+boost/boost_test.cpp(19): check i == 2 failed [0 != 2]
 
-##teamcity[testFailed name='my_test2' message='failed' details='check i == 2 failed [0 != 2|]|ncheck i == 0 passed|n' flowId='myFlowId']
+##teamcity[testFailed name='my_test2' message='failed' details='boost/boost_test.cpp(19): check i == 2 failed [0 != 2|]|n' flowId='myFlowId']
 
 ##teamcity[testFinished name='my_test2' flowId='myFlowId' duration='0']
 
 ##teamcity[testSuiteFinished name='my_suite1' flowId='myFlowId']
 
 ##teamcity[testStarted name='my_test3' flowId='myFlowId']
-check i == 0 passed
 
 ##teamcity[testFinished name='my_test3' flowId='myFlowId' duration='0']
 
 ##teamcity[testSuiteStarted name='my_suite2' flowId='myFlowId']
 
 ##teamcity[testStarted name='my_test4' flowId='myFlowId']
-check i == 1 failed [0 != 1]
+boost/boost_test.cpp(36): check i == 1 failed [0 != 1]
 
-##teamcity[testFailed name='my_test4' message='failed' details='check i == 1 failed [0 != 1|]|n' flowId='myFlowId']
+##teamcity[testFailed name='my_test4' message='failed' details='boost/boost_test.cpp(36): check i == 1 failed [0 != 1|]|n' flowId='myFlowId']
 
 ##teamcity[testFinished name='my_test4' flowId='myFlowId' duration='0']
 
 ##teamcity[testSuiteStarted name='internal_suite' flowId='myFlowId']
 
 ##teamcity[testStarted name='my_test5' flowId='myFlowId']
-check i == 1 failed [0 != 1]
+boost/boost_test.cpp(44): check i == 1 failed [0 != 1]
 
-##teamcity[testFailed name='my_test5' message='failed' details='check i == 1 failed [0 != 1|]|n' flowId='myFlowId']
+##teamcity[testFailed name='my_test5' message='failed' details='boost/boost_test.cpp(44): check i == 1 failed [0 != 1|]|n' flowId='myFlowId']
 
 ##teamcity[testFinished name='my_test5' flowId='myFlowId' duration='0']
 
@@ -49,13 +47,13 @@ check i == 1 failed [0 != 1]
 
 ##teamcity[testStarted name='testCerr' flowId='myFlowId']
 Hello from cerr
-Test case testCerr did not check any assertions
+./boost/test/impl/results_collector.ipp(220): Test case testCerr did not check any assertions
 
 ##teamcity[testFinished name='testCerr' flowId='myFlowId' duration='0']
 
 ##teamcity[testStarted name='testCout' flowId='myFlowId']
 Hello from cout
-Test case testCout did not check any assertions
+./boost/test/impl/results_collector.ipp(220): Test case testCout did not check any assertions
 
 ##teamcity[testFinished name='testCout' flowId='myFlowId' duration='0']
 
@@ -67,7 +65,6 @@ std::runtime_error: runtime exception text
 ##teamcity[testFinished name='testException' flowId='myFlowId' duration='0']
 
 ##teamcity[testStarted name='testAssertExceptionGood' flowId='myFlowId']
-check 'exception runtime_error is caught' passed
 
 ##teamcity[testFinished name='testAssertExceptionGood' flowId='myFlowId' duration='0']
 
@@ -79,21 +76,21 @@ std::runtime_error: runtime exception text
 ##teamcity[testFinished name='testAssertExceptionFail' flowId='myFlowId' duration='0']
 
 ##teamcity[testStarted name='testFatal' flowId='myFlowId']
-bfail
+boost/boost_test.cpp(77): bfail
 
-##teamcity[testFailed name='testFatal' message='aborted' details='bfail|n' flowId='myFlowId']
+##teamcity[testFailed name='testFatal' message='aborted' details='boost/boost_test.cpp(77): bfail|n' flowId='myFlowId']
 
 ##teamcity[testFinished name='testFatal' flowId='myFlowId' duration='0']
 
 ##teamcity[testStarted name='testError' flowId='myFlowId']
-berror
+boost/boost_test.cpp(81): berror
 
-##teamcity[testFailed name='testError' message='failed' details='berror|n' flowId='myFlowId']
+##teamcity[testFailed name='testError' message='failed' details='boost/boost_test.cpp(81): berror|n' flowId='myFlowId']
 
 ##teamcity[testFinished name='testError' flowId='myFlowId' duration='0']
 
 ##teamcity[testStarted name='testNothing' flowId='myFlowId']
-Test case testNothing did not check any assertions
+./boost/test/impl/results_collector.ipp(220): Test case testNothing did not check any assertions
 
 ##teamcity[testFinished name='testNothing' flowId='myFlowId' duration='0']
 
