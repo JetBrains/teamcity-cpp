@@ -1,8 +1,8 @@
 CppUnit listener for TeamCity
 -----------------------------
 
-To report your tests result to TeamCity server
-include teamcity_messages.* teamcity_cppunit.*
+To report your test results to TeamCity server
+include teamcity_messages.* and teamcity_cppunit.*
 to your project and modify "main" function
 as shown in example.cpp
 (around JetBrains::underTeamcity and JetBrains::TeamcityProgressListener)
@@ -10,7 +10,7 @@ as shown in example.cpp
 Technical details
 -----------------
 
-Reporting implemented by writing TeamCity service messages to stdout.
+Reporting is implemented by writing TeamCity service messages to stdout.
 
 See
 http://www.jetbrains.net/confluence/display/TCD3/Build+Script+Interaction+with+TeamCity
