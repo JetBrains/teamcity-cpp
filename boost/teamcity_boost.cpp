@@ -73,10 +73,10 @@ struct TeamcityFormatterRegistrar {
         }
     }
 };
-BOOST_GLOBAL_FIXTURE(TeamcityFormatterRegistrar);
+BOOST_GLOBAL_FIXTURE(TeamcityFormatterRegistrar)
 
 // Formatter implementation
-string toString(const_string bstr) {
+static string toString(const_string bstr) {
     stringstream ss;
     
     ss << bstr;

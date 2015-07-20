@@ -86,7 +86,7 @@ static void run() {
     runner.run(controller);
 }
 
-int main(int argc, char **argv) {
+int main(int /*argc*/, char ** /*argv*/) {
     run();
     return 0;
 }
