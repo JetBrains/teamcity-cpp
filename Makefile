@@ -1,6 +1,8 @@
 TEAMCITY_PROJECT_NAME = test
 export TEAMCITY_PROJECT_NAME
 
+CXX = c++
+
 COMMON_FILES = common/teamcity_messages.cpp common/teamcity_messages.h
 BOOST_FILES = $(COMMON_FILES) \
 	boost/teamcity_boost.cpp \
@@ -18,13 +20,13 @@ CXXFLAGS := -Icommon -g -O0 \
 	-pedantic -Wall -Wextra -Wcast-align -Wcast-qual -Wctor-dtor-privacy -Wdisabled-optimization -Wformat=2 \
 	-Winit-self -Wlogical-op -Wmissing-declarations -Wmissing-include-dirs -Wnoexcept -Wold-style-cast \
 	-Wredundant-decls -Wshadow -Wsign-conversion -Wsign-promo -Wstrict-null-sentinel \
-	-Wstrict-overflow=5 -Wswitch-default -Wundef -Werror -Wno-unused
+	-Wstrict-overflow=5 -Wswitch-default -Wundef -Werror -Wno-unused -Wno-unknown-warning-option
 
-boost_test: $(BOOST_FILES)
-	g++ $(CXXFLAGS) -DBOOST_TEST_DYN_LINK -o $@ $(filter %.cpp, $(BOOST_FILES)) -lboost_unit_test_framework
+boost_test: $(BOOST_FILES) Makefile
+	$(CXX) $(CXXFLAGS) -DBOOST_TEST_DYN_LINK -o $@ $(filter %.cpp, $(BOOST_FILES)) -lboost_unit_test_framework
 
-cppunit_test: $(CPPUNIT_FILES)
-	g++ $(CXXFLAGS) -o \
+cppunit_test: $(CPPUNIT_FILES) Makefile
+	$(CXX) $(CXXFLAGS) -o \
 		$@ $(filter %.cpp, $(CPPUNIT_FILES)) -lcppunit
 
 BOOST_OUTPUT = boost/boost_test.output
@@ -46,6 +48,9 @@ test: boost_test cppunit_test
 	@echo "<<< Tests OK >>>"
 
 VERSION = $(shell cat VERSION)
+
+clean:
+	rm -f boost_test cppunit_test
 
 dist:
 	rm -f teamcity-*-$(VERSION).zip
