@@ -1,7 +1,7 @@
 TEAMCITY_PROJECT_NAME = test
 export TEAMCITY_PROJECT_NAME
 
-CXX = c++
+CXX ?= c++
 
 COMMON_FILES = common/teamcity_messages.cpp common/teamcity_messages.h
 BOOST_FILES = $(COMMON_FILES) \
