@@ -1,9 +1,13 @@
 language: cpp
+sudo: false
 compiler:
   - clang
   - gcc
-install:
-  - sudo apt-get update -qq
-  - sudo apt-get install -y libboost-dev libcppunit-dev libboost-test-dev
-script: 
+addons:
+  apt:
+    packages:
+      - libboost-dev
+      - libcppunit-dev
+      - libboost-test-dev
+script:
   - make
