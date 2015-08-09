@@ -34,7 +34,7 @@ cppunit_test: $(CPPUNIT_FILES) Makefile
 
 gtest_test: $(GTEST_FILES) Makefile
 	$(CXX) $(CXXFLAGS) -o \
-		$@ $(filter %.cpp, $(GTEST_FILES)) -lgtest -Wl,--verbose
+		$@ $(filter %.cpp, $(GTEST_FILES)) -lgtest
 
 
 BOOST_OUTPUT = boost/boost_test.output
