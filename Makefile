@@ -41,7 +41,7 @@ BOOST_OUTPUT = boost/boost_test.output
 CPPUNIT_OUTPUT = cppunit/cppunit_test.output
 GTEST_OUTPUT = gtest/gtest_test.output
 
-test: boost_test cppunit_test
+test: boost_test cppunit_test gtest_test
 	./boost_test >$(BOOST_OUTPUT).tmp 2>&1 ||:
 	diff -Nru $(BOOST_OUTPUT).gold $(BOOST_OUTPUT).tmp && rm -f $(BOOST_OUTPUT).tmp
 	
