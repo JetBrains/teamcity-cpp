@@ -120,11 +120,15 @@ void TeamcityMessages::suiteFinished(string name, string flowid) {
     closeMsg();
 }
 
-void TeamcityMessages::testStarted(string name, string flowid) {
+void TeamcityMessages::testStarted(string name, string flowid, bool captureStandardOutput) {
     openMsg("testStarted");
     writeProperty("name", name);
     if(flowid.length() > 0) {
         writeProperty("flowId", flowid);
+    }
+
+    if(captureStandardOutput) {
+        writeProperty("captureStandardOutput", "true"); // false by default
     }
     
     closeMsg();
