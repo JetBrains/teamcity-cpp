@@ -11,6 +11,6 @@ addons:
       - libboost-test-dev
       - libgtest-dev
 before_script:
-    - "cd /usr/src/gtest && sudo cmake . && sudo cmake --build . && sudo mv libg* /usr/local/lib/ ; cd -"
+    - "cd /usr/src/gtest && sudo cmake . && sudo make && sudo cmake --build . && sudo mv libgtest* /usr/lib/ ; cd -"
 script:
   - make
