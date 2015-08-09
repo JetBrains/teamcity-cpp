@@ -24,8 +24,8 @@ TeamcityGoogleTestEventListener::TeamcityGoogleTestEventListener() {
     flowid = getFlowIdFromEnvironment();
 }
 
-TeamcityGoogleTestEventListener::TeamcityGoogleTestEventListener(const std::string& flowid)
-    : flowid(flowid) {
+TeamcityGoogleTestEventListener::TeamcityGoogleTestEventListener(const std::string& flowid_)
+    : flowid(flowid_) {
 }
 
 // Fired before the test case starts.

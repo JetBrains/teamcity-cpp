@@ -13,6 +13,7 @@
  * limitations under the License.
  *
  */
+#include <stdexcept>
 
 #include <gtest/gtest.h>
 #include "teamcity_gtest.h"
