@@ -10,6 +10,9 @@ BOOST_FILES = $(COMMON_FILES) \
 CPPUNIT_FILES = $(COMMON_FILES) \
 	cppunit/teamcity_cppunit.cpp cppunit/teamcity_cppunit.h \
 	cppunit/cppunit_test.cpp
+GTEST_FILES = $(COMMON_FILES) \
+	gtest/teamcity_gtest.cpp gtest/teamcity_gtest.h \
+	gtest/gtest_test.cpp
 
 .PHONY: all test dist
 
@@ -29,8 +32,14 @@ cppunit_test: $(CPPUNIT_FILES) Makefile
 	$(CXX) $(CXXFLAGS) -o \
 		$@ $(filter %.cpp, $(CPPUNIT_FILES)) -lcppunit
 
+gtest_test: $(GTEST_FILES) Makefile
+	$(CXX) $(CXXFLAGS) -o \
+		$@ $(filter %.cpp, $(GTEST_FILES)) -lgtest
+
+
 BOOST_OUTPUT = boost/boost_test.output
 CPPUNIT_OUTPUT = cppunit/cppunit_test.output
+GTEST_OUTPUT = gtest/gtest_test.output
 
 test: boost_test cppunit_test
 	./boost_test >$(BOOST_OUTPUT).tmp 2>&1 ||:
@@ -44,13 +53,19 @@ test: boost_test cppunit_test
 	
 	TEAMCITY_PROCESS_FLOW_ID=myFlowId ./cppunit_test >$(CPPUNIT_OUTPUT).flowId.tmp 2>&1 ||:
 	diff -Nru $(CPPUNIT_OUTPUT).flowId.gold $(CPPUNIT_OUTPUT).flowId.tmp && rm -f $(CPPUNIT_OUTPUT).flowId.tmp
-	
+
+	./gtest_test >$(GTEST_OUTPUT).tmp 2>&1 ||:
+	diff -Nru $(GTEST_OUTPUT).gold $(GTEST_OUTPUT).tmp && rm -f $(GTEST_OUTPUT).tmp
+
+	TEAMCITY_PROCESS_FLOW_ID=myFlowId ./gtest_test >$(GTEST_OUTPUT).flowId.tmp 2>&1 ||:
+	diff -Nru $(GTEST_OUTPUT).flowId.gold $(GTEST_OUTPUT).flowId.tmp && rm -f $(GTEST_OUTPUT).flowId.tmp
+
 	@echo "<<< Tests OK >>>"
 
 VERSION = $(shell cat VERSION)
 
 clean:
-	rm -f boost_test cppunit_test
+	rm -f boost_test cppunit_test gtest_test
 
 dist:
 	rm -f teamcity-*-$(VERSION).zip
@@ -59,3 +74,6 @@ dist:
 	    cppunit/example.cpp cppunit/README.txt
 	zip -rj9 teamcity-boost-$(VERSION).zip \
 		boost/teamcity_boost.* common/teamcity_messages.* boost/README.txt
+	zip -rj9 teamcity-gtest-$(VERSION).zip \
+		gtest/teamcity_gtest.* common/teamcity_messages.* \
+	    gtest/example.cpp gtest/README.txt

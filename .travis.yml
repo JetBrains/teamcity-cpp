@@ -9,5 +9,6 @@ addons:
       - libboost-dev
       - libcppunit-dev
       - libboost-test-dev
+      - libgtest-dev
 script:
   - make
