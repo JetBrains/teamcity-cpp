@@ -2,6 +2,9 @@
 *.suo
 *.opensdf
 _ReSharper.Caches
+ipch
 Debug
+Release
 boost
 cppunit
+gtest

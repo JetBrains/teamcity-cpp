@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test-cppunit", "test-cppuni
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test-boost", "test-boost\test-boost.vcxproj", "{A8910F98-82B7-40C6-BB72-49CF1CCFFABD}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test-gtest", "test-gtest\test-gtest.vcxproj", "{3D4D7A53-4CB4-4F55-A640-3A3AE4F875C8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -21,6 +23,10 @@ Global
 		{A8910F98-82B7-40C6-BB72-49CF1CCFFABD}.Debug|Win32.Build.0 = Debug|Win32
 		{A8910F98-82B7-40C6-BB72-49CF1CCFFABD}.Release|Win32.ActiveCfg = Release|Win32
 		{A8910F98-82B7-40C6-BB72-49CF1CCFFABD}.Release|Win32.Build.0 = Release|Win32
+		{3D4D7A53-4CB4-4F55-A640-3A3AE4F875C8}.Debug|Win32.ActiveCfg = Debug|Win32
+		{3D4D7A53-4CB4-4F55-A640-3A3AE4F875C8}.Debug|Win32.Build.0 = Debug|Win32
+		{3D4D7A53-4CB4-4F55-A640-3A3AE4F875C8}.Release|Win32.ActiveCfg = Release|Win32
+		{3D4D7A53-4CB4-4F55-A640-3A3AE4F875C8}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,5 +1,5 @@
 language: cpp
-sudo: false
+sudo: true
 compiler:
   - clang
   - gcc
@@ -9,5 +9,8 @@ addons:
       - libboost-dev
       - libcppunit-dev
       - libboost-test-dev
+      - libgtest-dev
+before_script:
+    - "cd /usr/src/gtest && sudo cmake . && sudo make && sudo mv libg* /usr/lib/ && cd -"
 script:
   - make
