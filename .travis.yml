@@ -10,5 +10,7 @@ addons:
       - libcppunit-dev
       - libboost-test-dev
       - libgtest-dev
+before_script:
+    - "cd /usr/src/gtest && sudo cmake . && sudo cmake --build . && sudo mv libg* /usr/local/lib/ ; cd -"
 script:
   - make

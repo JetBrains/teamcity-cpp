@@ -18,6 +18,8 @@
 #include <gtest/gtest.h>
 #include "teamcity_gtest.h"
 
+void throwRuntimeException();
+
 TEST(TestCase1, SuccessfulTest1) {
     EXPECT_EQ(1, 1);
 }
