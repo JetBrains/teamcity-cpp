@@ -55,9 +55,11 @@ test: boost_test cppunit_test gtest_test
 	diff -Nru $(CPPUNIT_OUTPUT).flowId.gold $(CPPUNIT_OUTPUT).flowId.tmp && rm -f $(CPPUNIT_OUTPUT).flowId.tmp
 
 	./gtest_test >$(GTEST_OUTPUT).tmp 2>&1 ||:
+	sed -i -E "s/duration='[0-9]+'/duration='0'/g" $(GTEST_OUTPUT).tmp
 	diff -Nru $(GTEST_OUTPUT).gold $(GTEST_OUTPUT).tmp && rm -f $(GTEST_OUTPUT).tmp
 
 	TEAMCITY_PROCESS_FLOW_ID=myFlowId ./gtest_test >$(GTEST_OUTPUT).flowId.tmp 2>&1 ||:
+	sed -i -E "s/duration='[0-9]+'/duration='0'/g" $(GTEST_OUTPUT).flowId.tmp
 	diff -Nru $(GTEST_OUTPUT).flowId.gold $(GTEST_OUTPUT).flowId.tmp && rm -f $(GTEST_OUTPUT).flowId.tmp
 
 	@echo "<<< Tests OK >>>"
