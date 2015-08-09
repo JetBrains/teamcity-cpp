@@ -44,7 +44,7 @@ public:
     void suiteStarted(std::string name, std::string flowid = "");
     void suiteFinished(std::string name, std::string flowid = "");
     
-    void testStarted(std::string name, std::string flowid = "");
+    void testStarted(std::string name, std::string flowid = "", bool captureStandardOutput = false);
     void testFailed(std::string name, std::string message, std::string details, std::string flowid = "");
     void testIgnored(std::string name, std::string message, std::string flowid = "");
     void testFinished(std::string name, int durationMs = -1, std::string flowid = "");    

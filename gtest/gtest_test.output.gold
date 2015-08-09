@@ -1,0 +1,28 @@
+
+##teamcity[testSuiteStarted name='TestCase1']
+
+##teamcity[testStarted name='SuccessfulTest1']
+
+##teamcity[testFinished name='SuccessfulTest1' duration='0']
+
+##teamcity[testStarted name='MultipleFailures']
+
+##teamcity[testFailed name='MultipleFailures' message='Value of: 2|nExpected: 1' details='Value of: 2|nExpected: 1|n at gtest/gtest_test.cpp:27|nValue of: 3|nExpected: 2|n at gtest/gtest_test.cpp:28|nValue of: 4|nExpected: 3|n at gtest/gtest_test.cpp:29']
+
+##teamcity[testFinished name='MultipleFailures' duration='0']
+
+##teamcity[testSuiteFinished name='TestCase1']
+
+##teamcity[testSuiteStarted name='TestCase2']
+
+##teamcity[testStarted name='SuccessfulTest2']
+
+##teamcity[testFinished name='SuccessfulTest2' duration='0']
+
+##teamcity[testStarted name='FailedThrow']
+
+##teamcity[testFailed name='FailedThrow' message='Expected: throwRuntimeException() throws an exception of type std::logic_error.|n  Actual: it throws a different type.' details='Expected: throwRuntimeException() throws an exception of type std::logic_error.|n  Actual: it throws a different type.|n at gtest/gtest_test.cpp:38']
+
+##teamcity[testFinished name='FailedThrow' duration='0']
+
+##teamcity[testSuiteFinished name='TestCase2']

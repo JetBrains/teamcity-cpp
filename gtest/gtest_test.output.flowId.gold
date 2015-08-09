@@ -1,0 +1,28 @@
+
+##teamcity[testSuiteStarted name='TestCase1' flowId='myFlowId']
+
+##teamcity[testStarted name='SuccessfulTest1' flowId='myFlowId']
+
+##teamcity[testFinished name='SuccessfulTest1' flowId='myFlowId' duration='0']
+
+##teamcity[testStarted name='MultipleFailures' flowId='myFlowId']
+
+##teamcity[testFailed name='MultipleFailures' message='Value of: 2|nExpected: 1' details='Value of: 2|nExpected: 1|n at gtest/gtest_test.cpp:27|nValue of: 3|nExpected: 2|n at gtest/gtest_test.cpp:28|nValue of: 4|nExpected: 3|n at gtest/gtest_test.cpp:29' flowId='myFlowId']
+
+##teamcity[testFinished name='MultipleFailures' flowId='myFlowId' duration='0']
+
+##teamcity[testSuiteFinished name='TestCase1' flowId='myFlowId']
+
+##teamcity[testSuiteStarted name='TestCase2' flowId='myFlowId']
+
+##teamcity[testStarted name='SuccessfulTest2' flowId='myFlowId']
+
+##teamcity[testFinished name='SuccessfulTest2' flowId='myFlowId' duration='0']
+
+##teamcity[testStarted name='FailedThrow' flowId='myFlowId']
+
+##teamcity[testFailed name='FailedThrow' message='Expected: throwRuntimeException() throws an exception of type std::logic_error.|n  Actual: it throws a different type.' details='Expected: throwRuntimeException() throws an exception of type std::logic_error.|n  Actual: it throws a different type.|n at gtest/gtest_test.cpp:38' flowId='myFlowId']
+
+##teamcity[testFinished name='FailedThrow' flowId='myFlowId' duration='0']
+
+##teamcity[testSuiteFinished name='TestCase2' flowId='myFlowId']
