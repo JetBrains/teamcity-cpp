@@ -26,24 +26,20 @@
 
 #include "teamcity_messages.h"
 
-using namespace boost::unit_test;
-using namespace std;
-
-namespace jetbrains {
-namespace teamcity {
+namespace jetbrains { namespace teamcity {
 
 // Custom formatter for TeamCity messages
 class TeamcityBoostLogFormatter: public boost::unit_test::unit_test_log_formatter {
     TeamcityMessages messages;
     std::string currentDetails;
     std::string flowId;
-    
+
 public:
     TeamcityBoostLogFormatter(const std::string &_flowId);
     TeamcityBoostLogFormatter();
 
     virtual ~TeamcityBoostLogFormatter() {}
-    
+
     virtual void log_start(std::ostream&, boost::unit_test::counter_t test_cases_amount);
     virtual void log_finish(std::ostream&);
     virtual void log_build_info(std::ostream&);
@@ -69,19 +65,20 @@ public:
 struct TeamcityFormatterRegistrar {
     TeamcityFormatterRegistrar() {
         if (jetbrains::teamcity::underTeamcity()) {
-            boost::unit_test::unit_test_log.set_formatter(new jetbrains::teamcity::TeamcityBoostLogFormatter());
+            boost::unit_test::unit_test_log.set_formatter(new TeamcityBoostLogFormatter());
             boost::unit_test::unit_test_log.set_threshold_level(boost::unit_test::log_test_units);
         }
     }
 };
+
 BOOST_GLOBAL_FIXTURE(TeamcityFormatterRegistrar)
 
 // Formatter implementation
-static string toString(const_string bstr) {
-    stringstream ss;
-    
+static std::string toString(boost::unit_test::const_string bstr) {
+    std::stringstream ss;
+
     ss << bstr;
-    
+
     return ss.str();
 }
 
@@ -93,32 +90,32 @@ TeamcityBoostLogFormatter::TeamcityBoostLogFormatter()
 : flowId(getFlowIdFromEnvironment())
 {}
 
-void TeamcityBoostLogFormatter::log_start(ostream &/*out*/, counter_t /*test_cases_amount*/)
+void TeamcityBoostLogFormatter::log_start(std::ostream &/*out*/, boost::unit_test::counter_t /*test_cases_amount*/)
 {}
 
-void TeamcityBoostLogFormatter::log_finish(ostream &/*out*/)
+void TeamcityBoostLogFormatter::log_finish(std::ostream &/*out*/)
 {}
 
-void TeamcityBoostLogFormatter::log_build_info(ostream &/*out*/)
+void TeamcityBoostLogFormatter::log_build_info(std::ostream &/*out*/)
 {}
 
-void TeamcityBoostLogFormatter::test_unit_start(ostream &out, test_unit const& tu) {
+void TeamcityBoostLogFormatter::test_unit_start(std::ostream &out, boost::unit_test::test_unit const& tu) {
     messages.setOutput(out);
 
-    if (tu.p_type == tut_case) {
+    if (tu.p_type == boost::unit_test::tut_case) {
         messages.testStarted(tu.p_name, flowId);
     } else {
         messages.suiteStarted(tu.p_name, flowId);
     }
-    
+
     currentDetails.clear();
 }
 
-void TeamcityBoostLogFormatter::test_unit_finish(ostream &out, test_unit const& tu, unsigned long elapsed) {
+void TeamcityBoostLogFormatter::test_unit_finish(std::ostream &out, boost::unit_test::test_unit const& tu, unsigned long elapsed) {
     messages.setOutput(out);
 
-    test_results const& tr = results_collector.results(tu.p_id);
-    if (tu.p_type == tut_case) {
+    boost::unit_test::test_results const& tr = boost::unit_test::results_collector.results(tu.p_id);
+    if (tu.p_type == boost::unit_test::tut_case) {
         if(!tr.passed()) {
             if(tr.p_skipped) {
                 messages.testIgnored(tu.p_name, "ignored", flowId);
@@ -128,26 +125,26 @@ void TeamcityBoostLogFormatter::test_unit_finish(ostream &out, test_unit const& 
                 messages.testFailed(tu.p_name, "failed", currentDetails, flowId);
             }
         }
-        
+
         messages.testFinished(tu.p_name, elapsed / 1000, flowId);
     } else {
         messages.suiteFinished(tu.p_name, flowId);
     }
 }
 
-void TeamcityBoostLogFormatter::test_unit_skipped(ostream &/*out*/, test_unit const& /*tu*/)
+void TeamcityBoostLogFormatter::test_unit_skipped(std::ostream &/*out*/, boost::unit_test::test_unit const& /*tu*/)
 {}
 
-void TeamcityBoostLogFormatter::log_exception(ostream &out, log_checkpoint_data const &, const_string explanation) {
-    string what = toString(explanation);
-    
-    out << what << endl;
+void TeamcityBoostLogFormatter::log_exception(std::ostream &out, boost::unit_test::log_checkpoint_data const &, boost::unit_test::const_string explanation) {
+    std::string what = toString(explanation);
+
+    out << what << std::endl;
     currentDetails += what + "\n";
 }
 
-void TeamcityBoostLogFormatter::log_entry_start(ostream & out, log_entry_data const & entry_data, log_entry_types /*let*/)
+void TeamcityBoostLogFormatter::log_entry_start(std::ostream & out, boost::unit_test::log_entry_data const & entry_data, log_entry_types /*let*/)
 {
-    stringstream ss;
+    std::stringstream ss(std::ios_base::out);
 
     out << entry_data.m_file_name << "(" << entry_data.m_line_num << "): ";
     ss  << entry_data.m_file_name << "(" << entry_data.m_line_num << "): ";
@@ -155,15 +152,14 @@ void TeamcityBoostLogFormatter::log_entry_start(ostream & out, log_entry_data co
     currentDetails += ss.str();
 }
 
-void TeamcityBoostLogFormatter::log_entry_value(ostream &out, const_string value) {
+void TeamcityBoostLogFormatter::log_entry_value(std::ostream &out, boost::unit_test::const_string value) {
     out << value;
     currentDetails += toString(value);
 }
 
-void TeamcityBoostLogFormatter::log_entry_finish(ostream &out) {
-    out << endl;
+void TeamcityBoostLogFormatter::log_entry_finish(std::ostream &out) {
+    out << std::endl;
     currentDetails += "\n";
 }
 
-}
-}
+}}                                                          // namespace teamcity, jetbrains

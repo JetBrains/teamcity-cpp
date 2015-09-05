@@ -18,8 +18,8 @@
 #ifndef H_TEAMCITY_MESSAGES
 #define H_TEAMCITY_MESSAGES
 
-#include <string>
 #include <iostream>
+#include <string>
 
 namespace jetbrains {
 namespace teamcity {
@@ -29,7 +29,7 @@ bool underTeamcity();
 
 class TeamcityMessages {
     std::ostream *m_out;
-    
+
 protected:
     std::string escape(std::string s);
 
@@ -39,16 +39,16 @@ protected:
 
 public:
     TeamcityMessages();
-    
+
     void setOutput(std::ostream &);
-    
-    void suiteStarted(std::string name, std::string flowid = "");
-    void suiteFinished(std::string name, std::string flowid = "");
-    
-    void testStarted(std::string name, std::string flowid = "", bool captureStandardOutput = false);
-    void testFailed(std::string name, std::string message, std::string details, std::string flowid = "");
-    void testIgnored(std::string name, std::string message, std::string flowid = "");
-    void testFinished(std::string name, int durationMs = -1, std::string flowid = "");    
+
+    void suiteStarted(std::string name, std::string flowid =  std::string());
+    void suiteFinished(std::string name, std::string flowid =  std::string());
+
+    void testStarted(std::string name, std::string flowid =  std::string(), bool captureStandardOutput = false);
+    void testFailed(std::string name, std::string message, std::string details, std::string flowid =  std::string());
+    void testIgnored(std::string name, std::string message, std::string flowid =  std::string());
+    void testFinished(std::string name, int durationMs = -1, std::string flowid = std::string());
 };
 
 }

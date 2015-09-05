@@ -4,8 +4,6 @@
 
 #include <boost/test/unit_test.hpp>
 
-using namespace std;
-
 /* Suite tree tests */
 BOOST_AUTO_TEST_SUITE(my_suite1)
 
@@ -50,15 +48,15 @@ BOOST_AUTO_TEST_SUITE_END()
 
 /* Other */
 BOOST_AUTO_TEST_CASE(testCerr) {
-    cerr << "Hello from cerr" << endl;
+    std::cerr << "Hello from cerr" << std::endl;
 }
 
 BOOST_AUTO_TEST_CASE(testCout) {
-    cerr << "Hello from cout" << endl;
+    std::cout << "Hello from cout" << std::endl;
 }
 
 static void ThrowRuntimeError() {
-    throw runtime_error("runtime exception text");
+    throw std::runtime_error("runtime exception text");
 }
 
 BOOST_AUTO_TEST_CASE(testException) {
@@ -66,19 +64,19 @@ BOOST_AUTO_TEST_CASE(testException) {
 }
 
 BOOST_AUTO_TEST_CASE(testAssertExceptionGood) {
-    BOOST_CHECK_THROW(ThrowRuntimeError(), runtime_error);
+    BOOST_CHECK_THROW(ThrowRuntimeError(), std::runtime_error);
 }
 
 BOOST_AUTO_TEST_CASE(testAssertExceptionFail) {
-    BOOST_CHECK_THROW(ThrowRuntimeError(), logic_error);
+    BOOST_CHECK_THROW(ThrowRuntimeError(), std::logic_error);
 }
 
 BOOST_AUTO_TEST_CASE(testFatal) {
     BOOST_FAIL("bfail");
 }
-    
+
 BOOST_AUTO_TEST_CASE(testError) {
     BOOST_ERROR("berror");
 }
-    
+
 BOOST_AUTO_TEST_CASE(testNothing) {}
