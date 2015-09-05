@@ -1,0 +1,12 @@
+Running 13 test cases...
+/work/GitHub/teamcity-cpp/boost/boost_test.cpp(11): error in "my_test1": check 2 == 1 failed
+/work/GitHub/teamcity-cpp/boost/boost_test.cpp(17): error in "my_test2": check i == 2 failed [0 != 2]
+/work/GitHub/teamcity-cpp/boost/boost_test.cpp(34): error in "my_test4": check i == 1 failed [0 != 1]
+/work/GitHub/teamcity-cpp/boost/boost_test.cpp(42): error in "my_test5": check i == 1 failed [0 != 1]
+Hello from cout
+unknown location(0): fatal error in "testException": std::runtime_error: runtime exception text
+/work/GitHub/teamcity-cpp/boost/boost_test.cpp(42): last checkpoint
+unknown location(0): fatal error in "testAssertExceptionFail": std::runtime_error: runtime exception text
+/work/GitHub/teamcity-cpp/boost/boost_test.cpp(71): last checkpoint
+/work/GitHub/teamcity-cpp/boost/boost_test.cpp(75): fatal error in "testFatal": bfail
+/work/GitHub/teamcity-cpp/boost/boost_test.cpp(79): error in "testError": berror
