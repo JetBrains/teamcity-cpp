@@ -4,16 +4,16 @@
 ##teamcity[testSuiteStarted name='my_suite1' flowId='myFlowId']
 
 ##teamcity[testStarted name='my_test1' flowId='myFlowId']
-/work/GitHub/teamcity-cpp/boost/boost_test.cpp(11): check 2 == 1 failed
+boost/boost_test.cpp(11): check 2 == 1 failed
 
-##teamcity[testFailed name='my_test1' message='failed' details='/work/GitHub/teamcity-cpp/boost/boost_test.cpp(11): check 2 == 1 failed|n' flowId='myFlowId']
+##teamcity[testFailed name='my_test1' message='failed' details='boost/boost_test.cpp(11): check 2 == 1 failed|n' flowId='myFlowId']
 
 ##teamcity[testFinished name='my_test1' flowId='myFlowId' duration='0']
 
 ##teamcity[testStarted name='my_test2' flowId='myFlowId']
-/work/GitHub/teamcity-cpp/boost/boost_test.cpp(17): check i == 2 failed [0 != 2]
+boost/boost_test.cpp(17): check i == 2 failed [0 != 2]
 
-##teamcity[testFailed name='my_test2' message='failed' details='/work/GitHub/teamcity-cpp/boost/boost_test.cpp(17): check i == 2 failed [0 != 2|]|n' flowId='myFlowId']
+##teamcity[testFailed name='my_test2' message='failed' details='boost/boost_test.cpp(17): check i == 2 failed [0 != 2|]|n' flowId='myFlowId']
 
 ##teamcity[testFinished name='my_test2' flowId='myFlowId' duration='0']
 
@@ -26,18 +26,18 @@
 ##teamcity[testSuiteStarted name='my_suite2' flowId='myFlowId']
 
 ##teamcity[testStarted name='my_test4' flowId='myFlowId']
-/work/GitHub/teamcity-cpp/boost/boost_test.cpp(34): check i == 1 failed [0 != 1]
+boost/boost_test.cpp(34): check i == 1 failed [0 != 1]
 
-##teamcity[testFailed name='my_test4' message='failed' details='/work/GitHub/teamcity-cpp/boost/boost_test.cpp(34): check i == 1 failed [0 != 1|]|n' flowId='myFlowId']
+##teamcity[testFailed name='my_test4' message='failed' details='boost/boost_test.cpp(34): check i == 1 failed [0 != 1|]|n' flowId='myFlowId']
 
 ##teamcity[testFinished name='my_test4' flowId='myFlowId' duration='0']
 
 ##teamcity[testSuiteStarted name='internal_suite' flowId='myFlowId']
 
 ##teamcity[testStarted name='my_test5' flowId='myFlowId']
-/work/GitHub/teamcity-cpp/boost/boost_test.cpp(42): check i == 1 failed [0 != 1]
+boost/boost_test.cpp(42): check i == 1 failed [0 != 1]
 
-##teamcity[testFailed name='my_test5' message='failed' details='/work/GitHub/teamcity-cpp/boost/boost_test.cpp(42): check i == 1 failed [0 != 1|]|n' flowId='myFlowId']
+##teamcity[testFailed name='my_test5' message='failed' details='boost/boost_test.cpp(42): check i == 1 failed [0 != 1|]|n' flowId='myFlowId']
 
 ##teamcity[testFinished name='my_test5' flowId='myFlowId' duration='0']
 
@@ -46,6 +46,7 @@
 ##teamcity[testSuiteFinished name='my_suite2' flowId='myFlowId']
 
 ##teamcity[testStarted name='testCerr' flowId='myFlowId']
+Hello from cerr
 ./boost/test/impl/results_collector.ipp(220): Test case testCerr did not check any assertions
 
 ##teamcity[testFinished name='testCerr' flowId='myFlowId' duration='0']
@@ -75,16 +76,16 @@ std::runtime_error: runtime exception text
 ##teamcity[testFinished name='testAssertExceptionFail' flowId='myFlowId' duration='0']
 
 ##teamcity[testStarted name='testFatal' flowId='myFlowId']
-/work/GitHub/teamcity-cpp/boost/boost_test.cpp(75): bfail
+boost/boost_test.cpp(75): bfail
 
-##teamcity[testFailed name='testFatal' message='aborted' details='/work/GitHub/teamcity-cpp/boost/boost_test.cpp(75): bfail|n' flowId='myFlowId']
+##teamcity[testFailed name='testFatal' message='aborted' details='boost/boost_test.cpp(75): bfail|n' flowId='myFlowId']
 
 ##teamcity[testFinished name='testFatal' flowId='myFlowId' duration='0']
 
 ##teamcity[testStarted name='testError' flowId='myFlowId']
-/work/GitHub/teamcity-cpp/boost/boost_test.cpp(79): berror
+boost/boost_test.cpp(79): berror
 
-##teamcity[testFailed name='testError' message='failed' details='/work/GitHub/teamcity-cpp/boost/boost_test.cpp(79): berror|n' flowId='myFlowId']
+##teamcity[testFailed name='testError' message='failed' details='boost/boost_test.cpp(79): berror|n' flowId='myFlowId']
 
 ##teamcity[testFinished name='testError' flowId='myFlowId' duration='0']
 
@@ -94,3 +95,5 @@ std::runtime_error: runtime exception text
 ##teamcity[testFinished name='testNothing' flowId='myFlowId' duration='0']
 
 ##teamcity[testSuiteFinished name='Master Test Suite' flowId='myFlowId']
+
+*** 8 failures detected in test suite "Master Test Suite"

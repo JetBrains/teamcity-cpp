@@ -3,22 +3,22 @@ if(PRETEND_TEAMCITY)
     set(ENV{TEAMCITY_PROJECT_NAME} teamcity-cpp)
     set(_output_flavour ".flowid")
     set(_expected_output "@_rtr_flowid_expected_output@")
-    set(_expected_error "@_rtr_flowid_expected_error@")
 else()
     set(_expected_output "@_rtr_expected_output@")
-    set(_expected_error "@_rtr_expected_error@")
 endif()
 
 set(_rtr_expected_output "@_rtr_expected_output@")
-set(_rtr_expected_error "@_rtr_expected_error")
 set(_rtr_flowid_expected_output "@_rtr_flowid_expected_output@")
-set(_rtr_flowid_expected_error "@_rtr_flowid_expected_error")
 
 execute_process(
     COMMAND "${CMAKE_CURRENT_LIST_DIR}/@_rtr_TARGET@"
     OUTPUT_FILE "@_rtr_TARGET@${_output_flavour}.output"
-    ERROR_FILE "@_rtr_TARGET@${_output_flavour}.error"
+    ERROR_FILE "@_rtr_TARGET@${_output_flavour}.output"
   )
+
+file(READ "@_rtr_TARGET@${_output_flavour}.output" _output)
+string(REPLACE "@PROJECT_SOURCE_DIR@/" "" _output "${_output}")
+file(WRITE "@_rtr_TARGET@${_output_flavour}.output" "${_output}")
 
 execute_process(
     COMMAND "@DIFF_EXECUTABLE@" -Nru

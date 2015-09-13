@@ -9,3 +9,7 @@ target_link_libraries(
     gtest_test
     ${GTEST_LIBRARY}
   )
+
+render_test_runner(
+    TARGET gtest_test
+  )
