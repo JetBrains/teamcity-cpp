@@ -5,7 +5,7 @@ To report your test results to TeamCity server
 include teamcity_messages.* and teamcity_cppunit.*
 to your project and modify "main" function
 as shown in example.cpp
-(around JetBrains::underTeamcity and JetBrains::TeamcityProgressListener)
+(around jetbrains::teamcity::underTeamcity and jetbrains::teamcity::TeamcityProgressListener)
 
 Technical details
 -----------------

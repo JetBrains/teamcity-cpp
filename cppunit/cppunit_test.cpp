@@ -78,7 +78,7 @@ CPPUNIT_TEST_SUITE_REGISTRATION(MyTest);
 static void run() {
     CPPUNIT_NS::TestResult controller;
 
-    JetBrains::TeamcityProgressListener tc;
+    jetbrains::teamcity::TeamcityProgressListener tc;
     controller.addListener(&tc);
 
     CPPUNIT_NS::TestRunner runner;

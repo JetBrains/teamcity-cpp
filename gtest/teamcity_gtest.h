@@ -22,7 +22,8 @@
 
 #include "teamcity_messages.h"
 
-namespace JetBrains {
+namespace jetbrains {
+namespace teamcity {
 
 class TeamcityGoogleTestEventListener: public ::testing::EmptyTestEventListener {
 public:
@@ -47,6 +48,7 @@ private:
     void operator =(const TeamcityGoogleTestEventListener&);
 };
 
+}
 }
 
 #endif /* H_TEAMCITY_GTEST */

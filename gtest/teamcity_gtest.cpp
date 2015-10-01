@@ -16,7 +16,8 @@
 
 #include "teamcity_gtest.h"
 
-namespace JetBrains {
+namespace jetbrains {
+namespace teamcity {
 
 using namespace testing;
 
@@ -81,4 +82,5 @@ void TeamcityGoogleTestEventListener::OnTestCaseEnd(const TestCase& test_case) {
     messages.suiteFinished(test_case.name(), flowid);
 }
 
+}
 }

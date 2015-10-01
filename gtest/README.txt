@@ -4,7 +4,7 @@ Google Test listener for TeamCity
 To report your test results to TeamCity server
 include teamcity_messages.* and teamcity_gtest.*
 to your project and modify "main" function
-as shown in example.cpp (around JetBrains::underTeamcity)
+as shown in example.cpp (around jetbrains::teamcity::underTeamcity)
 
 Technical details
 -----------------

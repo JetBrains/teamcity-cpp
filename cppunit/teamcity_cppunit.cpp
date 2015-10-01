@@ -25,7 +25,8 @@
 using namespace CPPUNIT_NS;
 using namespace std;
 
-namespace JetBrains {
+namespace jetbrains {
+namespace teamcity {
 
 TeamcityProgressListener::TeamcityProgressListener()
 {
@@ -83,4 +84,5 @@ void TeamcityProgressListener::endSuite(Test *test) {
     messages.suiteFinished(test->getName(), flowid);
 }
 
+}
 }

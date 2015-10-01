@@ -44,7 +44,7 @@ int main(int argc, char** argv) {
 
     ::testing::TestEventListeners& listeners = ::testing::UnitTest::GetInstance()->listeners();
     delete listeners.Release(listeners.default_result_printer());
-    listeners.Append(new JetBrains::TeamcityGoogleTestEventListener());
+    listeners.Append(new jetbrains::teamcity::TeamcityGoogleTestEventListener());
 
     return RUN_ALL_TESTS();
 }

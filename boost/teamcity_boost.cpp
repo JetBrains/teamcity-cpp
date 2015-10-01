@@ -26,7 +26,7 @@
 
 #include "teamcity_messages.h"
 
-namespace JetBrains {
+namespace jetbrains { namespace teamcity {
 
 // Custom formatter for TeamCity messages
 class TeamcityBoostLogFormatter: public boost::unit_test::unit_test_log_formatter {
@@ -64,8 +64,8 @@ public:
 // Fake fixture to register formatter
 struct TeamcityFormatterRegistrar {
     TeamcityFormatterRegistrar() {
-        if (JetBrains::underTeamcity()) {
-            boost::unit_test::unit_test_log.set_formatter(new JetBrains::TeamcityBoostLogFormatter());
+        if (jetbrains::teamcity::underTeamcity()) {
+            boost::unit_test::unit_test_log.set_formatter(new jetbrains::teamcity::TeamcityBoostLogFormatter());
             boost::unit_test::unit_test_log.set_threshold_level(boost::unit_test::log_test_units);
         }
     }
@@ -161,4 +161,4 @@ void TeamcityBoostLogFormatter::log_entry_finish(std::ostream &out) {
     currentDetails += "\n";
 }
 
-}
+}}

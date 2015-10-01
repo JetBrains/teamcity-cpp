@@ -24,7 +24,8 @@
 
 #include "teamcity_messages.h"
 
-namespace JetBrains {
+namespace jetbrains {
+namespace teamcity {
 
 class TeamcityProgressListener: public CPPUNIT_NS::TestListener {
     TeamcityMessages messages;
@@ -50,6 +51,7 @@ private:
     void operator =(const TeamcityProgressListener &copy);
 };
 
+}
 }
 
 #endif /* H_TEAMCITY_CPPUNIT */
