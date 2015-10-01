@@ -13,4 +13,4 @@ addons:
 before_script:
     - "cd /usr/src/gtest && sudo cmake . && sudo make && sudo mv libg* /usr/lib/ && cd -"
 script:
-  - make
+  - "cd build && cmake .. && make && make test"
