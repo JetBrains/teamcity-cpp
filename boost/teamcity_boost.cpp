@@ -69,7 +69,7 @@ public:
 struct TeamcityFormatterRegistrar {
     TeamcityFormatterRegistrar() {
         if (jetbrains::teamcity::underTeamcity()) {
-            boost::unit_test::unit_test_log.set_formatter(new JetBrains::TeamcityBoostLogFormatter());
+            boost::unit_test::unit_test_log.set_formatter(new jetbrains::teamcity::TeamcityBoostLogFormatter());
             boost::unit_test::unit_test_log.set_threshold_level(boost::unit_test::log_test_units);
         }
     }
