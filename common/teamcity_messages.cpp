@@ -22,7 +22,8 @@
 
 using namespace std;
 
-namespace JetBrains {
+namespace jetbrains {
+namespace teamcity {
 
 std::string getFlowIdFromEnvironment() {
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
@@ -175,4 +176,5 @@ void TeamcityMessages::testIgnored(std::string name, std::string message, string
     closeMsg();
 }
 
+}
 }

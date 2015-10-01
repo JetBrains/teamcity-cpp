@@ -49,10 +49,10 @@ int main(int argc, char **argv) {
     // Listen to progress
     TestListener *listener;
     
-    if (JetBrains::underTeamcity()) {
+    if (jetbrains::teamcity::underTeamcity()) {
         // Add unique flowId parameter if you want to run test processes in parallel
         // See http://confluence.jetbrains.net/display/TCD6/Build+Script+Interaction+with+TeamCity#BuildScriptInteractionwithTeamCity-MessageFlowId
-        listener = new JetBrains::TeamcityProgressListener();
+        listener = new jetbrains::teamcity::TeamcityProgressListener();
     } else {
         listener = new BriefTestProgressListener();
     }

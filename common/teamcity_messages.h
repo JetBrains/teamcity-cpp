@@ -21,7 +21,8 @@
 #include <string>
 #include <iostream>
 
-namespace JetBrains {
+namespace jetbrains {
+namespace teamcity {
 
 std::string getFlowIdFromEnvironment();
 bool underTeamcity();
@@ -50,6 +51,7 @@ public:
     void testFinished(std::string name, int durationMs = -1, std::string flowid = "");    
 };
 
+}
 }
 
 #endif /* H_TEAMCITY_MESSAGES */

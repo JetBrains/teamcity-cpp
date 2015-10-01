@@ -16,11 +16,11 @@ TEST(TestCase2, SuccessfulTest2) {
 int main(int argc, char** argv) {
     ::testing::InitGoogleTest(&argc, argv);
 
-    if (JetBrains::underTeamcity()) {
+    if (jetbrains::teamcity::underTeamcity()) {
         ::testing::TestEventListeners& listeners = ::testing::UnitTest::GetInstance()->listeners();
         // Add unique flowId parameter if you want to run test processes in parallel
         // See http://confluence.jetbrains.net/display/TCD6/Build+Script+Interaction+with+TeamCity#BuildScriptInteractionwithTeamCity-MessageFlowId
-        listeners.Append(new JetBrains::TeamcityGoogleTestEventListener());
+        listeners.Append(new jetbrains::teamcity::TeamcityGoogleTestEventListener());
     }
 
     return RUN_ALL_TESTS();
