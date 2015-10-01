@@ -6,14 +6,18 @@ add_executable(
     ../common/teamcity_messages.h
   )
 
+target_include_directories(
+    boost_test PRIVATE
+    ${Boost_INCLUDE_DIRS}
+  )
+
 target_compile_definitions(
-    boost_test
-    PRIVATE
+    boost_test PRIVATE
     -DBOOST_TEST_DYN_LINK
   )
 
 target_link_libraries(
-    boost_test
+    boost_test PRIVATE
     ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
   )
 
