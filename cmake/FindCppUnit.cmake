@@ -59,3 +59,8 @@ if(NOT CPPUNIT_LIBRARIES)
       )
 
 endif()
+
+# X-Chewy-RepoBase: https://raw.githubusercontent.com/mutanabbi/chewy-cmake-rep/master/
+# X-Chewy-Path: FindCppUnit.cmake
+# X-Chewy-Version: 1.0
+# X-Chewy-Description: CppUnit finder
