@@ -24,3 +24,12 @@ target_link_libraries(
 render_test_runner(
     TARGET boost_test
   )
+
+install(
+    FILES
+        teamcity_boost.cpp
+        ../common/teamcity_messages.cpp
+        ../common/teamcity_messages.h
+    DESTINATION "${CMAKE_INSTALL_DATADIR}"
+    COMPONENT "${TC_BOOST}"
+  )
