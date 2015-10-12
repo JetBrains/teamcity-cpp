@@ -19,11 +19,18 @@ render_test_runner(
     TARGET cppunit_test
   )
 
+render_component_config(cppunit)
+
 install(
     FILES
         teamcity_cppunit.cpp
-        ../common/teamcity_messages.cpp
-        ../common/teamcity_messages.h
+        teamcity_cppunit.h
     DESTINATION "${CMAKE_INSTALL_DATADIR}"
     COMPONENT "${TC_CPPUNIT}"
+  )
+
+install(
+    FILES "${CMAKE_CURRENT_BINARY_DIR}/teamcity-cpp-cppunit.cmake"
+    DESTINATION "${CMAKE_INSTALL_DATADIR}/cmake"
+    COMPONENT "${TC_BOOST}"
   )
