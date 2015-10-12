@@ -1,0 +1,84 @@
+# - Find OnixS Common C++ Libraries package
+#
+# Search for `OnixS` and set the following variables
+# (as recommended by CMake finder module guidelines):
+#   TEAMCITY_CPP_FOUND          - is package found
+#   TEAMCITY_CPP_INSTALL_PREFIX - install prefix used at configuration time
+#   TEAMCITY_CPP_VERSION        - found package version
+#   TEAMCITY_CPP_INCLUDE_DIRS   - dir w/ header files
+#   TEAMCITY_CPP_LIBRARY_DIRS   - dir w/ compiled libraries
+#
+# Some other variables might be useful as well:
+#   TEAMCITY_CPP_VERSION_MAJOR
+#   TEAMCITY_CPP_VERSION_MINOR
+#   TEAMCITY_CPP_VERSION_PATCH
+#
+
+@PACKAGE_INIT@
+
+# Set and check some paths
+if(NOT TEAMCITY_CPP_INSTALL_PREFIX)
+    set_and_check(TEAMCITY_CPP_INSTALL_PREFIX "@PACKAGE_CMAKE_INSTALL_PREFIX@")
+endif()
+if(NOT TEAMCITY_CPP_DATA_DIR)
+    set_and_check(TEAMCITY_CPP_DATA_DIR "@PACKAGE_CMAKE_INSTALL_DATADIR@")
+endif()
+# if(NOT TEAMCITY_CPP_INCLUDE_DIR)
+#     set_and_check(TEAMCITY_CPP_INCLUDE_DIR "@PACKAGE_CMAKE_INSTALL_INCLUDEDIR@")
+# endif()
+# if(NOT TEAMCITY_CPP_LIBRARIES_DIR)
+#     set_and_check(TEAMCITY_CPP_LIBRARIES_DIR "@PACKAGE_CMAKE_INSTALL_LIBDIR@")
+# endif()
+# if(NOT TEAMCITY_CPP_CMAKE_MODULESDIR)
+#     set_and_check(TEAMCITY_CPP_CMAKE_MODULESDIR "@PACKAGE_CMAKE_INSTALL_CMAKE_MODULESDIR@")
+# endif()
+
+# Setup some version strings as recommended by CMake guidelines
+set(TEAMCITY_CPP_VERSION "@PROJECT_VERSION@")
+set(TEAMCITY_CPP_VERSION_MAJOR "@PROJECT_VERSION_MAJOR@")
+set(TEAMCITY_CPP_VERSION_MINOR "@PROJECT_VERSION_MINOR@")
+set(TEAMCITY_CPP_VERSION_PATCH "@PROJECT_VERSION_PATCH@")
+set(TEAMCITY_CPP_VERSION_TWEAK "@PROJECT_VERSION_TWEAK@")
+
+# Find components if requested
+set(_TEAMCITY_CPP_NOTFOUND_MESSAGE)
+set(_TEAMCITY_CPP_FOUND_COMPONENTS)
+foreach(module ${teamcity-cpp_FIND_COMPONENTS})
+    # TODO Make sure component is supported
+    include(
+        "${TEAMCITY_CPP_DATA_DIR}/cmake/teamcity-cpp-${module}.cmake"
+        OPTIONAL
+        RESULT_VARIABLE TEAMCITY_CPP_${module}_FOUND
+      )
+    if(NOT TEAMCITY_CPP_${module}_FOUND)
+        if (teamcity-cpp_FIND_REQUIRED_${module})
+            if(NOT _TEAMCITY_CPP_NOTFOUND_MESSAGE)
+                set(_TEAMCITY_CPP_NOTFOUND_MESSAGE "Failed to find the following requested TeamCity C++ component(s):")
+            endif()
+            set(_TEAMCITY_CPP_NOTFOUND_MESSAGE "${_TEAMCITY_CPP_NOTFOUND_MESSAGE}\n  ${module}")
+        elseif(NOT teamcity-cpp_FIND_QUIETLY)
+            message(WARNING "Failed to find TeamCity C++ component: ${module}")
+        endif()
+    else()
+        list(APPEND _TEAMCITY_CPP_FOUND_COMPONENTS ${module})
+    endif()
+endforeach()
+
+message(STATUS "Found TeamCity C++: ${TEAMCITY_CPP_VERSION}")
+foreach(module ${_TEAMCITY_CPP_FOUND_COMPONENTS})
+    message(STATUS "  ${module}")
+endforeach()
+
+if(_TEAMCITY_CPP_NOTFOUND_MESSAGE)
+    set(teamcity-cpp_NOT_FOUND_MESSAGE "${_TEAMCITY_CPP_NOTFOUND_MESSAGE}")
+    set(teamcity-cpp_FOUND NOTFOUND)
+    set(TEAMCITY_CPP_FOUND NOTFOUND)
+else()
+    set(teamcity-cpp_FOUND TRUE)
+    set(TEAMCITY_CPP_FOUND TRUE)
+endif()
+
+unset(_TEAMCITY_CPP_NOTFOUND_MESSAGE)
+unset(_TEAMCITY_CPP_FOUND_COMPONENTS)
+
+# kate: hl CMake;

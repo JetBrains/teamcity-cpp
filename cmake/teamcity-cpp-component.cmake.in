@@ -1,0 +1,7 @@
+set(
+    TEAMCITY_CPP_@_rcc_comp_upcase@_SOURCES
+    "@CMAKE_INSTALL_FULL_DATADIR@/teamcity_messages.h"
+    "@CMAKE_INSTALL_FULL_DATADIR@/teamcity_messages.cpp"
+    "@CMAKE_INSTALL_FULL_DATADIR@/teamcity_@_rcc_comp_lowcase@.cpp"
+    @_rcc_more_sources@
+  )
