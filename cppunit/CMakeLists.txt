@@ -25,12 +25,17 @@ install(
     FILES
         teamcity_cppunit.cpp
         teamcity_cppunit.h
-    DESTINATION "${CMAKE_INSTALL_DATADIR}"
-    COMPONENT "${TC_CPPUNIT}"
+    DESTINATION "${PROJECT_NAME}-cppunit-${PROJECT_VERSION}"
+    COMPONENT cppunit
   )
 
 install(
-    FILES "${CMAKE_CURRENT_BINARY_DIR}/teamcity-cpp-cppunit.cmake"
-    DESTINATION "${CMAKE_INSTALL_DATADIR}/cmake"
-    COMPONENT "${TC_BOOST}"
+    FILES "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-cppunit.cmake"
+    DESTINATION "${PROJECT_NAME}-cppunit-${PROJECT_VERSION}/cmake"
+    COMPONENT cppunit
+  )
+
+cpack_add_component(
+    cppunit
+    DISPLAY_NAME "CppUnit support"
   )

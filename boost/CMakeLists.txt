@@ -2,8 +2,7 @@ add_executable(
     boost_test
     boost_test.cpp
     teamcity_boost.cpp
-    ../common/teamcity_messages.cpp
-    ../common/teamcity_messages.h
+    $<TARGET_OBJECTS:common>
   )
 
 target_include_directories(
@@ -28,13 +27,21 @@ render_test_runner(
 render_component_config(boost)
 
 install(
-    FILES teamcity_boost.cpp
-    DESTINATION "${CMAKE_INSTALL_DATADIR}"
-    COMPONENT "${TC_BOOST}"
+    FILES
+        teamcity_boost.cpp
+        ../common/teamcity_messages.cpp
+        ../common/teamcity_messages.h
+    DESTINATION "${PROJECT_NAME}-boost-${PROJECT_VERSION}"
+    COMPONENT boost
   )
 
 install(
-    FILES "${CMAKE_CURRENT_BINARY_DIR}/teamcity-cpp-boost.cmake"
-    DESTINATION "${CMAKE_INSTALL_DATADIR}/cmake"
-    COMPONENT "${TC_BOOST}"
+    FILES "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-boost.cmake"
+    DESTINATION "${PROJECT_NAME}-boost-${PROJECT_VERSION}/cmake"
+    COMPONENT boost
+  )
+
+cpack_add_component(
+    boost
+    DISPLAY_NAME "Boost Unit Test Framework support"
   )
