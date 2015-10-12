@@ -25,12 +25,17 @@ install(
     FILES
         teamcity_gtest.cpp
         teamcity_gtest.h
-    DESTINATION "${CMAKE_INSTALL_DATADIR}"
-    COMPONENT "${TC_GTEST}"
+    DESTINATION "${PROJECT_NAME}-gtest-${PROJECT_VERSION}"
+    COMPONENT gtest
   )
 
 install(
-    FILES "${CMAKE_CURRENT_BINARY_DIR}/teamcity-cpp-gtest.cmake"
-    DESTINATION "${CMAKE_INSTALL_DATADIR}/cmake"
-    COMPONENT "${TC_BOOST}"
+    FILES "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-gtest.cmake"
+    DESTINATION "${PROJECT_NAME}-gtest-${PROJECT_VERSION}/cmake"
+    COMPONENT gtest
+  )
+
+cpack_add_component(
+    gtest
+    DISPLAY_NAME "Google Test support"
   )
