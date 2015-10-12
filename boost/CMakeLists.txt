@@ -24,20 +24,12 @@ render_test_runner(
     TARGET boost_test
   )
 
-render_component_config(boost)
-
 install(
     FILES
         teamcity_boost.cpp
         ../common/teamcity_messages.cpp
         ../common/teamcity_messages.h
     DESTINATION "${PROJECT_NAME}-boost-${PROJECT_VERSION}"
-    COMPONENT boost
-  )
-
-install(
-    FILES "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-boost.cmake"
-    DESTINATION "${PROJECT_NAME}-boost-${PROJECT_VERSION}/cmake"
     COMPONENT boost
   )
 

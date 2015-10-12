@@ -19,19 +19,13 @@ render_test_runner(
     TARGET cppunit_test
   )
 
-render_component_config(cppunit)
-
 install(
     FILES
         teamcity_cppunit.cpp
         teamcity_cppunit.h
+        ../common/teamcity_messages.cpp
+        ../common/teamcity_messages.h
     DESTINATION "${PROJECT_NAME}-cppunit-${PROJECT_VERSION}"
-    COMPONENT cppunit
-  )
-
-install(
-    FILES "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-cppunit.cmake"
-    DESTINATION "${PROJECT_NAME}-cppunit-${PROJECT_VERSION}/cmake"
     COMPONENT cppunit
   )
 
