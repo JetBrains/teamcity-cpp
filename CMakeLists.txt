@@ -9,19 +9,20 @@ find_package(Boost 1.55 COMPONENTS unit_test_framework)
 find_package(GTest)
 find_package(CppUnit)
 
-# include(GNUInstallDirs)
-include(RenderComponentConfig)
 include(RenderTestRunner)
 include(CTest)
 enable_testing()
 
 include_directories(common)
 
-set(CPACK_GENERATOR TBZ2)
+if(WIN32)
+    set(CPACK_GENERATOR ZIP)
+else()
+    set(CPACK_GENERATOR TBZ2)
+endif()
 set(CPACK_PACKAGE_VERSION ${PROJECT_VERSION})
 set(CPACK_ARCHIVE_COMPONENT_INSTALL ON)
 set(CPACK_PACKAGE_FILE_NAME "${PROJECT_NAME}-${PROJECT_VERSION}")
-
 include(CPack)
 
 add_subdirectory(common)

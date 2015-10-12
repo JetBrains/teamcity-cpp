@@ -19,19 +19,13 @@ render_test_runner(
     TARGET gtest_test
   )
 
-render_component_config(gtest)
-
 install(
     FILES
         teamcity_gtest.cpp
         teamcity_gtest.h
+        ../common/teamcity_messages.cpp
+        ../common/teamcity_messages.h
     DESTINATION "${PROJECT_NAME}-gtest-${PROJECT_VERSION}"
-    COMPONENT gtest
-  )
-
-install(
-    FILES "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-gtest.cmake"
-    DESTINATION "${PROJECT_NAME}-gtest-${PROJECT_VERSION}/cmake"
     COMPONENT gtest
   )
 
