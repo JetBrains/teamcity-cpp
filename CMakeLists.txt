@@ -1,11 +1,11 @@
-cmake_minimum_required(VERSION 3.3)
+cmake_minimum_required(VERSION 2.8)
 
 # TODO `teamcity-cpp` sounds not cleancertain, maybe it is better smth
 # like `cpp-tests-teamcity-itegration` (CTTI)? %)
-project(teamcity-cpp VERSION 1.5 LANGUAGES CXX)
+project(teamcity-cpp)
 set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
 
-find_package(Boost 1.55 COMPONENTS unit_test_framework)
+find_package(Boost COMPONENTS unit_test_framework)
 find_package(GTest)
 find_package(CppUnit)
 
@@ -29,7 +29,7 @@ add_subdirectory(common)
 if(Boost_FOUND)
     add_subdirectory(boost)
 endif()
-if(GTest_FOUND)
+if(GTEST_FOUND)
     add_subdirectory(gtest)
 endif()
 if(CPPUNIT_FOUND)

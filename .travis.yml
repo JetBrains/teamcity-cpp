@@ -1,16 +1,22 @@
 language: cpp
-sudo: true
+sudo: false
 compiler:
   - clang
   - gcc
 addons:
   apt:
+    sources:
+      - kubuntu-backports
     packages:
+      - cmake
+      - cmake-data
       - libboost-dev
       - libcppunit-dev
       - libboost-test-dev
       - libgtest-dev
 before_script:
-    - "cd /usr/src/gtest && sudo cmake . && sudo make && sudo mv libg* /usr/lib/ && cd -"
+  - "cmake --version"
+  - "mkdir gtest-bin && cd gtest-bin && cmake /usr/src/gtest && make && cd .."
 script:
-  - "cd build && cmake .. && make && make test"
+  - export CMAKE_LIBRARY_PATH=$(pwd)/gtest-bin
+  - "mkdir build && cd build && cmake .. && make && make test"

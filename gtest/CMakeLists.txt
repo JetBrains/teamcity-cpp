@@ -1,3 +1,5 @@
+find_package(Threads)
+
 add_executable(
     gtest_test
     gtest_test.cpp
@@ -13,6 +15,7 @@ target_include_directories(
 target_link_libraries(
     gtest_test PRIVATE
     ${GTEST_LIBRARY}
+    ${CMAKE_THREAD_LIBS_INIT}
   )
 
 render_test_runner(
