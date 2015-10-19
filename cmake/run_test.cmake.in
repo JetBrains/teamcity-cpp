@@ -20,19 +20,25 @@ execute_process(
     ERROR_FILE "@_rtr_TARGET@${_output_flavour}.error"
   )
 
-file(READ "@_rtr_TARGET@${_output_flavour}.output" _output)
-string(REPLACE "@PROJECT_SOURCE_DIR@/" "" _output "${_output}")
-file(WRITE "@_rtr_TARGET@${_output_flavour}.output" "${_output}")
+foreach(kind "output" "error")
+    set(file_prefix "@_rtr_TARGET@${_output_flavour}.${kind}")
 
-execute_process(
-    COMMAND "@DIFF_EXECUTABLE@" -Nru
-        "@_rtr_TARGET@${_output_flavour}.output"
-        "${_expected_output}"
-    RESULT_VARIABLE _exit_code
-    OUTPUT_FILE "@_rtr_TARGET@${_output_flavour}.output.diff"
-    ERROR_FILE "@_rtr_TARGET@${_output_flavour}.output.diff"
-  )
+    file(READ "${file_prefix}" _out)
+    string(REPLACE "@PROJECT_SOURCE_DIR@/" "" _out "${_out}")
+    file(WRITE "${file_prefix}" "${_out}")
 
-if(NOT ${_exit_code} EQUAL 0)
-    message(FATAL_ERROR "Test failed: @_rtr_TARGET@${_output_flavour}")
-endif()
+    execute_process(
+        COMMAND "@DIFF_EXECUTABLE@" -Nru "${_expected_${kind}}" "${file_prefix}"
+        RESULT_VARIABLE _diff_exit_code
+        OUTPUT_FILE "${file_prefix}.diff"
+      )
+
+    file(READ "${file_prefix}.diff" _diff_output)
+    string(LENGTH "${_diff_output}" _diff_output_len)
+
+    if(${_diff_output_len} EQUAL 0)
+        file(REMOVE "${file_prefix}.diff")
+    else()
+        message(FATAL_ERROR "Standard ${kind} comparison failed: ${file_prefix}, diff:\n${_diff_output}")
+    endif()
+endforeach()

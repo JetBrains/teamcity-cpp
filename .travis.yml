@@ -19,4 +19,4 @@ before_script:
   - "mkdir gtest-bin && cd gtest-bin && cmake /usr/src/gtest && make && cd .."
 script:
   - export CMAKE_LIBRARY_PATH=$(pwd)/gtest-bin
-  - "mkdir build && cd build && cmake .. && make && make test"
+  - "mkdir build && cd build && cmake .. && make && ctest -V"
