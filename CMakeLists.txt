@@ -1,14 +1,18 @@
 cmake_minimum_required(VERSION 2.8)
 
+# ATTENTION Change this version on release
+# TODO Get it via git?
+set(teamcity_cpp_version 1.5)
+
 if(CMAKE_VERSION VERSION_LESS 3.0)
     project(teamcity-cpp)
     # Old signature do not support VERSION, so set it manually
-    set(PROJECT_VERSION 1.5)
+    set(PROJECT_VERSION ${teamcity_cpp_version})
 else()
     cmake_policy(SET CMP0048 NEW)
     # C language needed for finding threads
     # (will be fixed in cmake >= 3.4)
-    project(teamcity-cpp VERSION 1.5 LANGUAGES C CXX)
+    project(teamcity-cpp VERSION ${teamcity_cpp_version} LANGUAGES C CXX)
 endif()
 
 set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
