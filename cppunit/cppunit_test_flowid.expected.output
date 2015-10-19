@@ -15,7 +15,6 @@ Hello, cout
 ##teamcity[testFinished name='MyTest::testException' flowId='myFlowId']
 
 ##teamcity[testStarted name='MyTest::testCerr' flowId='myFlowId']
-Hello, cerr!
 
 ##teamcity[testFinished name='MyTest::testCerr' flowId='myFlowId']
 

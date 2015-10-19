@@ -15,7 +15,6 @@ Hello, cout
 ##teamcity[testFinished name='MyTest::testException']
 
 ##teamcity[testStarted name='MyTest::testCerr']
-Hello, cerr!
 
 ##teamcity[testFinished name='MyTest::testCerr']
 

@@ -46,7 +46,6 @@ boost/boost_test.cpp(42): check i == 1 failed [0 != 1]
 ##teamcity[testSuiteFinished name='my_suite2' flowId='myFlowId']
 
 ##teamcity[testStarted name='testCerr' flowId='myFlowId']
-Hello from cerr
 ./boost/test/impl/results_collector.ipp(220): Test case testCerr did not check any assertions
 
 ##teamcity[testFinished name='testCerr' flowId='myFlowId' duration='0']
@@ -95,5 +94,3 @@ boost/boost_test.cpp(79): berror
 ##teamcity[testFinished name='testNothing' flowId='myFlowId' duration='0']
 
 ##teamcity[testSuiteFinished name='Master Test Suite' flowId='myFlowId']
-
-*** 8 failures detected in test suite "Master Test Suite"
