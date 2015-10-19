@@ -1,5 +1,3 @@
-find_package(Threads)
-
 add_executable(
     gtest_test
     gtest_test.cpp

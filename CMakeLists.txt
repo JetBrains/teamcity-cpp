@@ -1,11 +1,22 @@
 cmake_minimum_required(VERSION 2.8)
 
-project(teamcity-cpp)
+if(CMAKE_VERSION VERSION_LESS 3.0)
+    project(teamcity-cpp)
+    # Old signature do not support VERSION, so set it manually
+    set(PROJECT_VERSION 1.5)
+else()
+    cmake_policy(SET CMP0048 NEW)
+    # C language needed for finding threads
+    # (will be fixed in cmake >= 3.4)
+    project(teamcity-cpp VERSION 1.5 LANGUAGES C CXX)
+endif()
+
 set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
 
 find_package(Boost COMPONENTS unit_test_framework)
 find_package(GTest)
 find_package(CppUnit)
+find_package(Threads)
 
 include(RenderTestRunner)
 include(CTest)
