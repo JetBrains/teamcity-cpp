@@ -25,6 +25,7 @@ foreach(kind "output" "error")
 
     file(READ "${file_prefix}" _out)
     string(REPLACE "@PROJECT_SOURCE_DIR@/" "" _out "${_out}")
+    string(REGEX REPLACE "duration='[0-9]+'" "duration='0'" _out "${_out}")
     file(WRITE "${file_prefix}" "${_out}")
 
     execute_process(
