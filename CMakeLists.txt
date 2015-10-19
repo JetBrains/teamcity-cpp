@@ -1,7 +1,5 @@
 cmake_minimum_required(VERSION 2.8)
 
-# TODO `teamcity-cpp` sounds not cleancertain, maybe it is better smth
-# like `cpp-tests-teamcity-itegration` (CTTI)? %)
 project(teamcity-cpp)
 set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
 
