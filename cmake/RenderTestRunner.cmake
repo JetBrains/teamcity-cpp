@@ -8,12 +8,16 @@ set(_rtr_base_dir "${CMAKE_CURRENT_LIST_DIR}")
 
 function(render_test_runner)
     set(_options)
-    set(_one_value_args TARGET)
+    set(_one_value_args TARGET VERSION)
     set(_multi_value_args)
     cmake_parse_arguments(_rtr "${_options}" "${_one_value_args}" "${_multi_value_args}" ${ARGN})
 
     if(NOT DIFF_EXECUTABLE)
         return()
+    endif()
+
+    if(_rtr_VERSION)
+        set(_rtr_VERSION "_${_rtr_VERSION}")
     endif()
 
     if(NOT (_rtr_TARGET AND TARGET ${_rtr_TARGET}))
@@ -22,10 +26,10 @@ function(render_test_runner)
 
     foreach(output "output" "error")
         foreach(kind "" "_flowid")
-            if(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/${_rtr_TARGET}${kind}.expected.${output}")
-                message(FATAL_ERROR "Missed ${_rtr_TARGET}${kind}.expected.${output} in ${CMAKE_CURRENT_SOURCE_DIR}")
+            if(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/${_rtr_TARGET}${kind}.expected.${output}${_rtr_VERSION}")
+                message(FATAL_ERROR "Missed ${_rtr_TARGET}${kind}.expected.${output}${_rtr_VERSION} in ${CMAKE_CURRENT_SOURCE_DIR}")
             endif()
-            set(_rtr${kind}_expected_${output} "${CMAKE_CURRENT_SOURCE_DIR}/${_rtr_TARGET}${kind}.expected.${output}")
+            set(_rtr${kind}_expected_${output} "${CMAKE_CURRENT_SOURCE_DIR}/${_rtr_TARGET}${kind}.expected.${output}${_rtr_VERSION}")
         endforeach()
     endforeach()
 

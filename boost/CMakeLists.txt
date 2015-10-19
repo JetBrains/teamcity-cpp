@@ -20,9 +20,16 @@ target_link_libraries(
     ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
   )
 
-render_test_runner(
-    TARGET boost_test
-  )
+if(Boost_VERSION VERSION_LESS 105900)
+    render_test_runner(
+        TARGET boost_test
+      )
+else()
+    render_test_runner(
+        TARGET boost_test
+        VERSION 1_59
+      )
+endif()
 
 install(
     FILES

@@ -1,80 +1,50 @@
 /* Copyright 2011 JetBrains s.r.o.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * $Revision: 88625 $
-*/
+ */
 
-#include <sstream>
+#include "teamcity_messages.h"
 
-#include <boost/test/unit_test_suite_impl.hpp>
+#include <boost/version.hpp>
+#if BOOST_VERSION >= 105900
+# include <boost/test/execution_monitor.hpp>
+#else                                                       // BOOST_VERSION < 105900
+# include <boost/test/unit_test_suite_impl.hpp>
+#endif                                                      // BOOST_VERSION < 105900
 #include <boost/test/results_collector.hpp>
 #include <boost/test/utils/basic_cstring/io.hpp>
 #include <boost/test/unit_test_log.hpp>
 #include <boost/test/unit_test_log_formatter.hpp>
 #include <boost/test/unit_test.hpp>
 
-#include "teamcity_messages.h"
+#include <sstream>
 
-namespace jetbrains { namespace teamcity {
-
-// Custom formatter for TeamCity messages
-class TeamcityBoostLogFormatter: public boost::unit_test::unit_test_log_formatter {
-    TeamcityMessages messages;
-    std::string currentDetails;
-    std::string flowId;
-
-public:
-    TeamcityBoostLogFormatter(const std::string &_flowId);
-    TeamcityBoostLogFormatter();
-
-    virtual ~TeamcityBoostLogFormatter() {}
-
-    virtual void log_start(std::ostream&, boost::unit_test::counter_t test_cases_amount);
-    virtual void log_finish(std::ostream&);
-    virtual void log_build_info(std::ostream&);
-
-    virtual void test_unit_start(std::ostream&, boost::unit_test::test_unit const& tu);
-    virtual void test_unit_finish(std::ostream&,
-        boost::unit_test::test_unit const& tu,
-        unsigned long elapsed);
-    virtual void test_unit_skipped(std::ostream&, boost::unit_test::test_unit const& tu);
-
-    virtual void log_exception(std::ostream&,
-        boost::unit_test::log_checkpoint_data const&,
-        boost::unit_test::const_string explanation);
-
-    virtual void log_entry_start(std::ostream & out,
-        boost::unit_test::log_entry_data const & entry_data,
-        log_entry_types let);
-    virtual void log_entry_value(std::ostream&, boost::unit_test::const_string value);
-    virtual void log_entry_finish(std::ostream&);
-};
-
-// Fake fixture to register formatter
-struct TeamcityFormatterRegistrar {
-    TeamcityFormatterRegistrar() {
-        if (underTeamcity()) {
-            boost::unit_test::unit_test_log.set_formatter(new TeamcityBoostLogFormatter());
-            boost::unit_test::unit_test_log.set_threshold_level(boost::unit_test::log_test_units);
-        }
-    }
-};
-
-BOOST_GLOBAL_FIXTURE(TeamcityFormatterRegistrar)
+namespace jetbrains { namespace teamcity { namespace {
+const std::string ASSERT_CTX = "Assertion occurred in a following context:";
+const std::string FAILURE_CTX = "Assertion occurred in a following context:";
+const boost::unit_test::test_unit_type UNIT_TEST_CASE =
+#if BOOST_VERSION < 105900
+    boost::unit_test::tut_case
+#else                                                       // BOOST_VERSION >= 105900
+    boost::unit_test::TUT_CASE
+#endif                                                      // BOOST_VERSION >= 105900
+  ;
 
 // Formatter implementation
-static std::string toString(boost::unit_test::const_string bstr) {
+std::string toString(boost::unit_test::const_string bstr)
+{
     std::stringstream ss;
 
     ss << bstr;
@@ -82,12 +52,78 @@ static std::string toString(boost::unit_test::const_string bstr) {
     return ss.str();
 }
 
-TeamcityBoostLogFormatter::TeamcityBoostLogFormatter(const std::string &_flowId)
-: flowId(_flowId)
+std::string toString(const boost::execution_exception& excpt)
+{
+    std::stringstream ss;
+
+    ss << excpt.what();
+
+    return ss.str();
+}
+}                                                           // anonymous namespace
+
+/// Custom formatter for TeamCity messages
+class TeamcityBoostLogFormatter : public boost::unit_test::unit_test_log_formatter
+{
+    TeamcityMessages messages;
+    std::string currentDetails;
+    std::string flowId;
+#if BOOST_VERSION >= 105900
+    std::string currentContextDetails;
+    std::string currentTestName;
+#endif                                                      // BOOST_VERSION >= 105900
+
+public:
+    TeamcityBoostLogFormatter(const std::string& flowId);
+    TeamcityBoostLogFormatter();
+
+    virtual ~TeamcityBoostLogFormatter() {}
+
+    virtual void log_start(std::ostream&, boost::unit_test::counter_t);
+    virtual void log_finish(std::ostream&);
+    virtual void log_build_info(std::ostream&);
+
+    virtual void test_unit_start(std::ostream&, const boost::unit_test::test_unit&);
+    virtual void test_unit_finish(std::ostream&, const boost::unit_test::test_unit&, unsigned long);
+    virtual void test_unit_skipped(std::ostream&, const boost::unit_test::test_unit&);
+
+    virtual void log_entry_start(std::ostream&, const boost::unit_test::log_entry_data&, log_entry_types);
+    virtual void log_entry_value(std::ostream&, boost::unit_test::const_string);
+    virtual void log_entry_finish(std::ostream&);
+
+#if BOOST_VERSION < 105900
+    virtual void log_exception(std::ostream&, const boost::unit_test::log_checkpoint_data&, boost::unit_test::const_string);
+#else                                                       // BOOST_VERSION >= 105900
+    virtual void log_exception_start(std::ostream&,const boost::unit_test::log_checkpoint_data&, const boost::execution_exception&);
+
+    virtual void log_exception_finish(std::ostream&);
+    virtual void entry_context_start(std::ostream&, boost::unit_test::log_level);
+    virtual void log_entry_context(std::ostream&, boost::unit_test::const_string);
+    virtual void entry_context_finish(std::ostream&);
+#endif                                                      // BOOST_VERSION >= 105900
+};
+
+// Fake fixture to register formatter
+struct TeamcityFormatterRegistrar
+{
+    TeamcityFormatterRegistrar()
+    {
+        if (underTeamcity())
+        {
+            boost::unit_test::unit_test_log.set_formatter(new TeamcityBoostLogFormatter());
+            boost::unit_test::unit_test_log.set_threshold_level(boost::unit_test::log_test_units);
+        }
+    }
+};
+
+BOOST_GLOBAL_FIXTURE(TeamcityFormatterRegistrar);
+
+TeamcityBoostLogFormatter::TeamcityBoostLogFormatter(const std::string& id)
+  : flowId(id)
 {}
 
 TeamcityBoostLogFormatter::TeamcityBoostLogFormatter()
-: flowId(getFlowIdFromEnvironment())
+  : flowId(getFlowIdFromEnvironment())
 {}
 
 void TeamcityBoostLogFormatter::log_start(std::ostream &/*out*/, boost::unit_test::counter_t /*test_cases_amount*/)
@@ -99,50 +135,47 @@ void TeamcityBoostLogFormatter::log_finish(std::ostream &/*out*/)
 void TeamcityBoostLogFormatter::log_build_info(std::ostream &/*out*/)
 {}
 
-void TeamcityBoostLogFormatter::test_unit_start(std::ostream &out, boost::unit_test::test_unit const& tu) {
+void TeamcityBoostLogFormatter::test_unit_start(std::ostream &out, boost::unit_test::test_unit const& tu)
+{
     messages.setOutput(out);
 
-    if (tu.p_type == boost::unit_test::tut_case) {
+    if (tu.p_type == UNIT_TEST_CASE)
         messages.testStarted(tu.p_name, flowId);
-    } else {
+    else
         messages.suiteStarted(tu.p_name, flowId);
-    }
 
     currentDetails.clear();
 }
 
-void TeamcityBoostLogFormatter::test_unit_finish(std::ostream &out, boost::unit_test::test_unit const& tu, unsigned long elapsed) {
+void TeamcityBoostLogFormatter::test_unit_finish(std::ostream &out, boost::unit_test::test_unit const& tu, unsigned long elapsed)
+{
     messages.setOutput(out);
 
     boost::unit_test::test_results const& tr = boost::unit_test::results_collector.results(tu.p_id);
-    if (tu.p_type == boost::unit_test::tut_case) {
-        if(!tr.passed()) {
-            if(tr.p_skipped) {
+    if (tu.p_type == UNIT_TEST_CASE)
+    {
+        if (!tr.passed())
+        {
+            if (tr.p_skipped)
                 messages.testIgnored(tu.p_name, "ignored", flowId);
-            } else if (tr.p_aborted) {
+            else if (tr.p_aborted)
                 messages.testFailed(tu.p_name, "aborted", currentDetails, flowId);
-            } else {
+            else
                 messages.testFailed(tu.p_name, "failed", currentDetails, flowId);
-            }
         }
 
         messages.testFinished(tu.p_name, elapsed / 1000, flowId);
-    } else {
+    }
+    else
+    {
         messages.suiteFinished(tu.p_name, flowId);
     }
 }
 
-void TeamcityBoostLogFormatter::test_unit_skipped(std::ostream &/*out*/, boost::unit_test::test_unit const& /*tu*/)
+void TeamcityBoostLogFormatter::test_unit_skipped(std::ostream& /*out*/, boost::unit_test::test_unit const& /*tu*/)
 {}
 
-void TeamcityBoostLogFormatter::log_exception(std::ostream &out, boost::unit_test::log_checkpoint_data const &, boost::unit_test::const_string explanation) {
-    std::string what = toString(explanation);
-
-    out << what << std::endl;
-    currentDetails += what + "\n";
-}
-
-void TeamcityBoostLogFormatter::log_entry_start(std::ostream & out, boost::unit_test::log_entry_data const & entry_data, log_entry_types /*let*/)
+void TeamcityBoostLogFormatter::log_entry_start(std::ostream& out, const boost::unit_test::log_entry_data& entry_data, log_entry_types /*let*/)
 {
     std::stringstream ss(std::ios_base::out);
 
@@ -152,14 +185,53 @@ void TeamcityBoostLogFormatter::log_entry_start(std::ostream & out, boost::unit_
     currentDetails += ss.str();
 }
 
-void TeamcityBoostLogFormatter::log_entry_value(std::ostream &out, boost::unit_test::const_string value) {
+void TeamcityBoostLogFormatter::log_entry_value(std::ostream& out, boost::unit_test::const_string value)
+{
     out << value;
     currentDetails += toString(value);
 }
 
-void TeamcityBoostLogFormatter::log_entry_finish(std::ostream &out) {
+void TeamcityBoostLogFormatter::log_entry_finish(std::ostream& out)
+{
     out << std::endl;
     currentDetails += "\n";
 }
 
+#if BOOST_VERSION < 105900
+void TeamcityBoostLogFormatter::log_exception(std::ostream& out, const boost::unit_test::log_checkpoint_data&, boost::unit_test::const_string explanation)
+{
+    out << explanation << std::endl;
+    currentDetails += toString(explanation) + "\n";
+}
+
+#else                                                       // BOOST_VERSION >= 105900
+void TeamcityBoostLogFormatter::log_exception_start(std::ostream& out, const boost::unit_test::log_checkpoint_data&, const boost::execution_exception& excpt)
+{
+    std::string what = toString(excpt);
+
+    out << what << std::endl;
+    currentDetails += what + "\n";
+}
+
+void TeamcityBoostLogFormatter::log_exception_finish(std::ostream &/*out*/) {}
+
+void TeamcityBoostLogFormatter::entry_context_start(std::ostream& out, boost::unit_test::log_level l)
+{
+    const std::string& initial_msg = (l == boost::unit_test::log_successful_tests ? ASSERT_CTX : FAILURE_CTX);
+    out << initial_msg;
+    currentContextDetails = initial_msg;
+}
+
+void TeamcityBoostLogFormatter::log_entry_context(std::ostream& out, boost::unit_test::const_string ctx)
+{
+    out << "\n " << ctx;
+    currentContextDetails += "\n " + toString(ctx);
+}
+
+void TeamcityBoostLogFormatter::entry_context_finish(std::ostream& out)
+{
+    out.flush();
+    messages.testOutput(currentTestName, currentContextDetails, flowId, TeamcityMessages::StdErr);
+}
+#endif                                                      // BOOST_VERSION >= 105900
 }}                                                          // namespace teamcity, jetbrains
