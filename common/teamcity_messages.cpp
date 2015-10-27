@@ -173,5 +173,16 @@ void TeamcityMessages::testIgnored(std::string name, std::string message, std::s
     closeMsg();
 }
 
+void TeamcityMessages::testOutput(std::string name, std::string output, std::string flowid, bool isStdError) {
+    openMsg(isStdError ? "testStdErr" : "testStdOut");
+    writeProperty("name", name);
+    writeProperty("out", output);
+    if(flowid.length() > 0) {
+        writeProperty("flowId", flowid);
+    }
+
+    closeMsg();
+}
+
 }
 }
