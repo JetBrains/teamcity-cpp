@@ -24,7 +24,7 @@ namespace jetbrains {
 namespace teamcity {
 
 std::string getFlowIdFromEnvironment() {
-#if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
+#if (defined(WIN32) || defined(_WIN32) || defined(__WIN32)) && !defined(__CYGWIN__) && !defined(__MINGW32__)
     char *flowId = NULL;
     size_t sz = 0;
     std::string result;
@@ -41,7 +41,7 @@ std::string getFlowIdFromEnvironment() {
 }
 
 bool underTeamcity() {
-#if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
+#if (defined(WIN32) || defined(_WIN32) || defined(__WIN32)) && !defined(__CYGWIN__) && !defined(__MINGW32__)
     char *teamCityProjectName = 0;
     size_t sz = 0;
     bool result = false;
