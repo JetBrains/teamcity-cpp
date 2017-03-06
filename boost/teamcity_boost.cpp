@@ -97,6 +97,8 @@ struct TeamcityFormatterRegistrar {
 
 BOOST_GLOBAL_FIXTURE(TeamcityFormatterRegistrar);
 
+void TeamcityGlobalFixture(){}
+
 // Formatter implementation
 static std::string toString(boost::unit_test::const_string bstr) {
     std::stringstream ss;
