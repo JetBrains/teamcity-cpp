@@ -97,7 +97,9 @@ struct TeamcityFormatterRegistrar {
 
 BOOST_GLOBAL_FIXTURE(TeamcityFormatterRegistrar);
 
-void TeamcityGlobalFixture(){}
+// Dummy method used to keep object file in case of static library linking
+// See README.md and https://github.com/JetBrains/teamcity-cpp/pull/19
+void TeamcityGlobalFixture() {}
 
 // Formatter implementation
 static std::string toString(boost::unit_test::const_string bstr) {
