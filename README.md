@@ -1,6 +1,8 @@
 teamcity-cpp
 ============
 
+[![official project](http://jb.gg/badges/official.svg)](https://confluence.jetbrains.com/display/ALL/JetBrains+on+GitHub)
+[![GitHub license](https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg?style=flat)](http://www.apache.org/licenses/LICENSE-2.0)
 [![Travis Build Status](https://travis-ci.org/JetBrains/teamcity-cpp.svg?branch=master)](https://travis-ci.org/JetBrains/teamcity-cpp)
 
 C++ Tests Reporting to TeamCity Continuous Integration Server
