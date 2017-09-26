@@ -83,6 +83,17 @@ public:
     virtual void entry_context_start(std::ostream&, boost::unit_test::log_level);
     virtual void log_entry_context(std::ostream&, boost::unit_test::const_string);
     virtual void entry_context_finish(std::ostream&);
+
+#if BOOST_VERSION >= 106500
+     // Since v1.65.0 the log level is passed to the formatters for the contexts
+     // See boostorg/test.git:fcb302b66ea09c25f0682588d22fbfdf59eac0f7
+     void log_entry_context(std::ostream& os, boost::unit_test::log_level, boost::unit_test::const_string ctx) override {
+         log_entry_context(os, ctx);
+     }
+     void entry_context_finish(std::ostream& os, boost::unit_test::log_level) override {
+         entry_context_finish(os);
+     }
+#endif
 };
 
 // Fake fixture to register formatter
