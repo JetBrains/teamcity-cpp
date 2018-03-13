@@ -101,15 +101,6 @@ BOOST_GLOBAL_FIXTURE(TeamcityFormatterRegistrar);
 // See README.md and https://github.com/JetBrains/teamcity-cpp/pull/19
 void TeamcityGlobalFixture() {}
 
-// Formatter implementation
-static std::string toString(boost::unit_test::const_string bstr) {
-    std::stringstream ss;
-
-    ss << bstr;
-
-    return ss.str();
-}
-
 TeamcityBoostLogFormatter::TeamcityBoostLogFormatter(const std::string &_flowId)
 : flowId(_flowId)
 {}
@@ -165,14 +156,13 @@ void TeamcityBoostLogFormatter::test_unit_skipped(std::ostream &/*out*/, boost::
 
 void TeamcityBoostLogFormatter::test_unit_skipped(std::ostream &out, boost::unit_test::test_unit const& tu, boost::unit_test::const_string reason)
 {
-    messages.testIgnored(tu.p_name, toString(reason), flowId);
+    messages.testIgnored(tu.p_name, std::string(reason.begin(), reason.end()), flowId);
 }
 
 void TeamcityBoostLogFormatter::log_exception(std::ostream &out, boost::unit_test::log_checkpoint_data const &, boost::unit_test::const_string explanation) {
-    std::string what = toString(explanation);
-
-    out << what << std::endl;
-    currentDetails += what + "\n";
+    out << explanation << std::endl;
+    currentDetails.append(explanation.begin(), explanation.end());
+    currentDetails += "\n";
 }
 
 void TeamcityBoostLogFormatter::log_exception_start(std::ostream &out, boost::unit_test::log_checkpoint_data const &data, const boost::execution_exception& excpt) {
@@ -194,7 +184,7 @@ void TeamcityBoostLogFormatter::log_entry_start(std::ostream & out, boost::unit_
 
 void TeamcityBoostLogFormatter::log_entry_value(std::ostream &out, boost::unit_test::const_string value) {
     out << value;
-    currentDetails += toString(value);
+    currentDetails.append(value.begin(), value.end());
 }
 
 void TeamcityBoostLogFormatter::log_entry_finish(std::ostream &out) {
@@ -210,7 +200,8 @@ void TeamcityBoostLogFormatter::entry_context_start(std::ostream &out, boost::un
 
 void TeamcityBoostLogFormatter::log_entry_context(std::ostream &out, boost::unit_test::const_string ctx) {
     out << "\n " << ctx;
-    currentContextDetails += "\n " + toString(ctx);
+    currentContextDetails += "\n ";
+    currentContextDetails.append(ctx.begin(), ctx.end());
 }
 
 void TeamcityBoostLogFormatter::entry_context_finish(std::ostream &out) {
