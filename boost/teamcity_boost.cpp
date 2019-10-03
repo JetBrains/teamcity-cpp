@@ -94,6 +94,14 @@ public:
          entry_context_finish(os);
      }
 #endif
+
+#if BOOST_VERSION >= 107000
+     // Since v1.70.0 the second argument indicates whether build info should be logged or not
+     // See boostorg/test.git:7e20f966dca4e4b49585bbe7654334f31b35b3db
+    void log_build_info(std::ostream& os, bool log_build_info) override {
+        if (log_build_info) this->log_build_info(os);
+    }
+#endif
 };
 
 // Fake fixture to register formatter
